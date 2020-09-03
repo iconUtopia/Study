@@ -10,17 +10,17 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
-      activeIndex: '1',
-    };
+      activeIndex: '1'
+    }
   },
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
-  },
-};
+    handleSelect (key, keyPath) {
+      console.log(key, keyPath)
+    }
+  }
+}
 </script>
 <style scopde>
 .el-menu.el-menu--horizontal {
