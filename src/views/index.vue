@@ -86,8 +86,8 @@ export default {
           td15: "2-6",
           td16: "2-7",
           td17: "2-8",
-          td18: "2-9"
-        }
+          td18: "2-9",
+        },
       ],
       // 设置表格中cell默认的字体，居中，颜色等
       defaultCellStyle: {
@@ -96,27 +96,27 @@ export default {
           bottom: {
             style: "thin",
             color: {
-              rgb: "000000"
-            }
+              rgb: "000000",
+            },
           },
           top: {
             style: "thin",
             color: {
-              rgb: "000000"
-            }
+              rgb: "000000",
+            },
           },
           left: {
             style: "thin",
             color: {
-              rgb: "000000"
-            }
+              rgb: "000000",
+            },
           },
           right: {
             style: "thin",
             color: {
-              rgb: "000000"
-            }
-          }
+              rgb: "000000",
+            },
+          },
         },
         alignment: {
           /// 自动换行
@@ -124,9 +124,9 @@ export default {
           // 居中
           horizontal: "center",
           vertical: "center",
-          indent: 0
-        }
-      }
+          indent: 0,
+        },
+      },
     };
   },
   methods: {
@@ -135,21 +135,10 @@ export default {
     },
     // 从json转化为sheet，xslx中没有aoaToSheet的方法，该方法摘自官方test
     sheet_from_array_of_arrays(data) {
-      console.log(
-        "%c 🍈 data: ",
-        "font-size:20px;background-color: #ED9EC7;color:#fff;",
-        data
-      );
       const lengthArr = data.map(item => {
         return item.length;
       });
-      console.log(lengthArr);
       let columnMax = Math.max(...lengthArr);
-      console.log(
-        "%c 🍕 columnMax: ",
-        "font-size:20px;background-color: #FCA650;color:#fff;",
-        columnMax
-      );
       const ws = {};
       // r:行；c:列
       const range = { s: { c: 1, r: 1 }, e: { c: 0, r: 0 } };
@@ -166,11 +155,6 @@ export default {
       }
 
       if (range.s.c < 10000000) ws["!ref"] = XLSX.utils.encode_range(range);
-      console.log(
-        "%c 🍶 range: ",
-        "font-size:20px;background-color: #ED9EC7;color:#fff;",
-        range
-      );
       return ws;
     },
     // 将一个sheet转成最终的excel文件的blob对象，然后利用URL.createObjectURL下载
@@ -178,21 +162,21 @@ export default {
       sheetName = sheetName || "sheet1";
       const workbook = {
         SheetNames: [sheetName],
-        Sheets: {}
+        Sheets: {},
       };
       workbook.Sheets[sheetName] = sheet;
       // 生成excel的配置项
       const wopts = {
         bookType: "xlsx", // 要生成的文件类型
         bookSST: false, // 是否生成Shared String Table，官方解释是，如果开启生成速度会下降，但在低版本IOS设备上有更好的兼容性
-        type: "binary"
+        type: "binary",
       };
 
       const wbout = XLSX.write(workbook, wopts, {
-        defaultCellStyle: this.defaultCellStyle
+        defaultCellStyle: this.defaultCellStyle,
       });
       const blob = new Blob([s2ab(wbout)], {
-        type: "application/octet-stream"
+        type: "application/octet-stream",
       });
       // 字符串转ArrayBuffer
       function s2ab(s) {
@@ -230,31 +214,28 @@ export default {
       const mergeTitle = [
         {
           s: { r: 0, c: 0 },
-          e: { r: 0, c: labels.length - 1 }
+          e: { r: 0, c: labels.length - 1 },
         },
         {
           s: { r: 1, c: 0 },
-          e: { r: 1, c: 8 }
+          e: { r: 1, c: 8 },
         },
         {
           s: { r: 1, c: 9 },
-          e: { r: 1, c: 17 }
-        }
+          e: { r: 1, c: 17 },
+        },
       ];
       sheet["!merges"] = mergeTitle;
-      // sheet["A1"].s = this.defaultCellStyle;
-      // sheet["A2"].s = this.defaultCellStyle;
-      // sheet["J2"].s = this.defaultCellStyle;
       const wbBlob = this.sheet2blob(sheet, "1");
       // 保存下载
       FileSaver.saveAs(wbBlob, "d.xlsx");
-    }
+    },
   },
   mounted() {
     // console.log(componentsFiles);
     for (let i = 0; i < 10; i++) {
       this.tableData.push(this.tableData[0]);
     }
-  }
+  },
 };
 </script>
