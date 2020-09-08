@@ -1,11 +1,6 @@
 <template>
-<nav>
- <el-menu
-      default-active="2"
-      class="el-menu-vertical-demo"
-      @open=""
-      @close=""
-      collapse-transition>
+  <nav>
+    <el-menu default-active="2" class="el-menu-vertical-demo" collapse-transition>
       <el-submenu index="1">
         <template slot="title">
           <span>导航一</span>
@@ -24,21 +19,21 @@
         </el-submenu>
       </el-submenu>
     </el-menu>
-</nav>
+  </nav>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
-      activeIndex: '1',
-    };
+      activeIndex: '1'
+    }
   },
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
-  },
-};
+    handleSelect (key, keyPath) {
+      console.log(key, keyPath)
+    }
+  }
+}
 </script>
 <style scoped>
 .el-menu {
