@@ -1,36 +1,38 @@
 <template>
   <div id="app">
     <el-container>
-  <el-header><STUDY-NAV></STUDY-NAV></el-header>
-  <el-container class="center">
-    <el-aside style="width: 20%;min-width: 100px;"><STUDY-SIDEBAR></STUDY-SIDEBAR></el-aside>
-    <el-main><router-view/></el-main>
-  </el-container>
-</el-container>
+      <el-header><STUDY-NAV></STUDY-NAV></el-header>
+      <el-container class="center">
+        <el-aside style="width: 20%;min-width: 100px;"
+          ><STUDY-SIDEBAR></STUDY-SIDEBAR
+        ></el-aside>
+        <el-main><router-view /></el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script>
-import STUDYNAV from '@/components/nav/'
-import STUDYSIDEBAR from './components/sidebar/'
+import STUDYNAV from "@/components/nav/";
+import STUDYSIDEBAR from "./components/sidebar/";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    'STUDY-NAV': STUDYNAV,
-    'STUDY-SIDEBAR': STUDYSIDEBAR
+    "STUDY-NAV": STUDYNAV,
+    "STUDY-SIDEBAR": STUDYSIDEBAR
   },
-  data () {
-    return {}
+  data() {
+    return {};
   },
   methods: {}
-}
+};
 </script>
 
 <style>
 /* 引入 reset.css 重置浏览器的默认样式 */
-@import url('../static/reset.css');
+@import url("../static/reset.css");
 </style>
-<style scoped lang='less'>
+<style scoped lang="less">
 .el-header {
   z-index: 2;
   border-bottom: solid 1px #e6e6e6;
