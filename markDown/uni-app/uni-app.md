@@ -127,7 +127,7 @@ html 标签和小程序一致
 - uni.scss 全局样式配置
 
 ## page.json
-
+****
 ```json
 {
   "pages": [
