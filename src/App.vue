@@ -13,19 +13,19 @@
 </template>
 
 <script>
-import STUDYNAV from "@/components/nav/";
-import STUDYSIDEBAR from "./components/sidebar/";
+import STUDYNAV from '@/components/nav/'
+import STUDYSIDEBAR from './components/sidebar/'
 export default {
-  name: "App",
-  components: {
-    "STUDY-NAV": STUDYNAV,
-    "STUDY-SIDEBAR": STUDYSIDEBAR
-  },
-  data() {
-    return {};
-  },
-  methods: {}
-};
+    name: 'App',
+    components: {
+        'STUDY-NAV': STUDYNAV,
+        'STUDY-SIDEBAR': STUDYSIDEBAR
+    },
+    data () {
+        return {}
+    },
+    methods: {}
+}
 </script>
 
 <style>
