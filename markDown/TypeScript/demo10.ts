@@ -16,4 +16,3 @@ namespace demo10 {
   const person2 = new PersonChild(18);
   console.log(person2.name, person2.age);
 }
-// https://www.bilibili.com/video/BV1qV41167VD?p=12 第12集

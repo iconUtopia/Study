@@ -8,10 +8,10 @@ namespace demo9 {
   // 类的内部和外部
   class Person {
     // 内部
-    private name: string;
+    private _name: string;
     protected age: number;
     public say() {
-      console.log(this.name + " hello");
+      console.log(this._name + " hello");
     }
   }
   class PersonChild extends Person {
