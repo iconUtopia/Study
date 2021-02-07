@@ -20,7 +20,7 @@ namespace demo12 {
 
   // 抽象类
   abstract class Info {
-    abstract say();
+    abstract say(): any;
   }
   class Girl extends Info {
     say() {

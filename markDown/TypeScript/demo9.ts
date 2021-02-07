@@ -13,6 +13,10 @@ namespace demo9 {
     public say() {
       console.log(this._name + " hello");
     }
+    constructor(name: string, age: number) {
+      this._name = name;
+      this.age = age;
+    }
   }
   class PersonChild extends Person {
     answer() {
@@ -20,6 +24,6 @@ namespace demo9 {
     }
   }
   // 外部
-  const person = new Person();
+  const person = new Person("小智", 18);
   person.say();
 }

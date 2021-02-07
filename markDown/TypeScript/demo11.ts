@@ -5,11 +5,11 @@
 namespace demo11 {
   class Person {
     constructor(private _age: number) {}
-    get age() {
-      return this._age - 10;
-    }
     set age(age: number) {
       this._age = age + 3;
+    }
+    get age() {
+      return this._age - 10;
     }
   }
   const person = new Person(28);
