@@ -13,26 +13,26 @@
 </template>
 
 <script>
-import STUDYNAV from '@/components/nav/'
-import STUDYSIDEBAR from './components/sidebar/'
+import STUDYNAV from "@/components/nav/";
+import STUDYSIDEBAR from "./components/sidebar/";
 export default {
-    name: 'App',
-    components: {
-        'STUDY-NAV': STUDYNAV,
-        'STUDY-SIDEBAR': STUDYSIDEBAR
-    },
-    data () {
-        return {}
-    },
-    methods: {}
-}
+  name: "App",
+  components: {
+    "STUDY-NAV": STUDYNAV,
+    "STUDY-SIDEBAR": STUDYSIDEBAR
+  },
+  data() {
+    return {};
+  },
+  methods: {}
+};
 </script>
 
 <style>
 /* 引入 reset.css 重置浏览器的默认样式 */
 @import url("../static/reset.css");
 </style>
-<style scoped lang="less">
+<style >
 .el-header {
   z-index: 2;
   border-bottom: solid 1px #e6e6e6;
@@ -43,11 +43,11 @@ export default {
   left: 0;
   top: 60px;
   bottom: 0;
-  .el-aside {
-    overflow: hidden;
-  }
-  .el-main {
-    overflow-y: auto;
-  }
+}
+.center .el-aside {
+  overflow: hidden;
+}
+.center .el-main {
+  overflow-y: auto;
 }
 </style>

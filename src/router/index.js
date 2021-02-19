@@ -12,8 +12,8 @@ export default new Router({
       component: Index
     },
     {
-      path: "/CSS-practice",
-      name: "index",
+      path: "/CSSPractice",
+      name: "CSSPractice",
       component: import("@/views/css-practice.vue")
     }
   ]
