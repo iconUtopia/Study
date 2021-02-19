@@ -1,9 +1,15 @@
 /*
  * 类、继承、多态
+ * 类的成员（属性和方法）
+ * 访问修饰符：公共(public)、保护(protected)、私有(private)
+ * 静态修饰符：静态属性(static)
+ * 只读修饰符：只读属性(readonly)
  */
 namespace TsClass {
   // 类的使用、类的属性
   class Person {
+    // readonly 只读属性，只能在声明同时赋予初始值，也可以在构造函数中赋值或修改初始值
+    readonly surname: string = "李";
     // public 公共变量 在当前类里面，子类，类外面都可以访问
     public name: string;
     // protected 保护变量 在当前类和子类内部可以访问，类外部无法访问
@@ -49,6 +55,7 @@ namespace TsClass {
 
   // 类的继承
   class Son extends Person {
+    // 静态成员无需实例化，直接通过类名调用。静态成员通常用于整个类所共有的一些东西
     // 静态属性
     static surname: string = "王";
     // 学校

@@ -1,5 +1,10 @@
 # TypeScript
 
+- node 无法直接运行 ts，所以需要通过运命令 `tsc xxx.ts` 将其转换为 js。然后 `node xxx.js` 运行 js 文件中的代码
+- `tsc`默认生成的是 ES4 的代码，我们编译的时候需要通过`--target ESx 1.js`指定 ts 编译的版本。也可以向在`tsconfig.json`中的`target`项配置
+- 如果想直接运行 ts，可以通过 `npm install -g ts-node` 全局安装 ts-node,转换需要 3-5s
+- namespace + 空间名{},命名空间，防止变量冲突
+
 ## 基本数据类型
 
 - 数字
@@ -189,16 +194,20 @@ console.log(reload(18)); //年龄
 
 ## 类
 
+类的**成员**：
+
+1. 属性
+2. 方法
+
 ```ts
 class Person {
-  // public 公共变量 在当前类里面，子类，类外面都可以访问
+  readonly surname: string = "李";
   public name: string;
-  // protected 保护变量 在当前类和子类内部可以访问，类外部无法访问
   protected _age: number;
-  // private 私有变量 在当前类内部可访问，子类，类外部都无法访问。
   private _weight: number;
   // 构造函数
   constructor(name: string, age: number, weight: number = 80) {
+    this.readonly = "王";
     this.name = name;
     this._age = age;
     this._weight = weight;
@@ -206,7 +215,7 @@ class Person {
   introduction(): string {
     return `我叫${this.name}，兴趣爱好是老头乐`;
   }
-  // Getter、Setter 属性用于访问 private
+  // 用于访问 protected、private 的访问器 Getter、Setter 属性
   get info() {
     return `我的名字叫王${this.name}，今年${this._age}，体重${this._weight}qk`;
   }
@@ -234,6 +243,24 @@ man.setAge(43);
 console.log(man.getInfo());
 console.log("---");
 ```
+
+###### 访问修饰符
+
+1. public 在当前类里面，子类，类外面都可以访问
+2. protected 在当前类和子类内部可以访问，类外部无法访问
+3. private 在当前类内部可访问，子类，类外部都无法访问。
+
+###### 只读修饰符
+
+1. readonly 只读属性，只能在声明同时赋予初始值，也可以在构造函数中赋值或修改初始值
+
+###### 静态修饰符
+
+1. static 静态属性，静态成员无需实例化，直接通过类名调用。静态成员通常用于整个类所共有的一些东西
+
+- 修饰符是可选的，在没有写任何修饰符，默认有个 `public`
+- 同类修饰符只能有一个
+- 三种修饰符有先后顺序，分别是：访问、静态、只读
 
 ## 继承
 
@@ -267,11 +294,6 @@ console.log("---");
   son.weight = 26;
   console.log(son.info);
 ```
-
-1. public 在当前类里面，子类，类外面都可以访问
-2. protected 在当前类和子类内部可以访问，类外部无法访问
-3. private 在当前类内部可访问，子类，类外部都无法访问。
-4. 属性不加修饰符,默认就是公有的 (public)
 
 ## 多态
 
@@ -432,6 +454,70 @@ superMan.code();
 
 类接口会对类的**属性**和**方法**进行约束，类似非抽象类继承抽象类时必须实现某些方法和属性，但对属性和方法的类型的约束更加严格，除了方法 **void 类型**可被**重新定义**外，其他属性或方法的类型定义需要和接口保持一致。
 
+## 联合类型
+
+只要函数的一个参数有两种以上的类型就称为联合类型,联合类型只提示公共的属性。只有在有联合类型的情况下才有类型保护（类型守护）
+
+```ts
+interface JieNiGui {
+  tortoise: boolean;
+  swim: () => {};
+}
+interface SuanTouWangBa {
+  tortoise: boolean;
+  yygq: () => {};
+}
+```
+
+###### 第一种类型保护方案：类型断言方式
+
+```ts
+function trainPokemon(pokemon: JieNiGui | SuanTouWangBa) {
+  // 这里直接调用 pokemon.swim() 是会报错的，因为 SuanTouWangBa 不存在 swim()
+  if (pokemon.tortoise) {
+    (pokemon as JieNiGui).swim(); // 强制告诉 TS，pokemon 是 JieNiGui 类型
+  } else (pokemon as SuanTouWangBa).yygq();
+}
+```
+
+###### 第二种类型保护方案： in 语法来做类型保护
+
+```ts
+function trainPokemon2(pokemon: JieNiGui | SuanTouWangBa) {
+  // 告诉 ts pokemon 里面有 swim
+  if ("swim" in pokemon) {
+    pokemon.swim();
+  } else pokemon.yygq();
+}
+```
+
+###### 第三种类型保护方案： typeof 语法来做类型保护
+
+```ts
+function add(first: string | number, second: string | number) {
+  // 这里直接 first + second 也会报错，因为有可能他们是 string 类型,这个时候也可以用类型保护
+  if (typeof first === "string" || typeof second === "string") {
+    return `${first}${second}`;
+  }
+  return first + second;
+```
+
+###### 第四种类型保护方案： instanceof 语法来做类型保护
+
+```ts
+class NumberObj {
+  // 因为只有 class 才能用 instanceof 做类型保护
+  count: number = 1;
+}
+function addSecond(first: object | NumberObj, second: object | NumberObj) {
+  // 这里直接 first.count + second.count 也会报错，因为有可能他们是 object，没有 count 属性，这个时候也可以用类型保护
+  if (first instanceof NumberObj && second instanceof NumberObj) {
+    return first.count + second.count;
+  }
+  return 0;
+}
+```
+
 ## 泛型
 
 泛型就是解决**类**、**接口**、**方法**的**复用性**，以及对**不特定数据类型**的支持。
@@ -447,7 +533,7 @@ function getDate<T>(value: T): T {
 console.log(getDate<number>(123));
 ```
 
-里的 T 可改成其他任意值但定义的值，和传入的参数以及返回的参数是一样的,一般默认写法是 T，也是业内规范的选择。
+T 可改成其他任意值但定义的值，和传入的参数以及返回的参数是一样的,一般默认写法是 T，也是业内规范的选择。
 
 ### 类的泛型
 
@@ -655,3 +741,84 @@ ee.eat();
 ```
 
 ## 装饰器
+
+类装饰器：类装饰器在类申明之前被申明(紧靠着类申明)，类装饰器应用于类构造函数，可以用于监视，修改或者替换类定义。
+
+```ts
+function logClass(params: any) {
+  console.log(params);
+  //params 就是指代当前类--HttpClient
+  params.prototype.apiUrl = "动态扩展属性";
+  params.prototype.run = function() {
+    console.log("动态扩展方法");
+  };
+  params.prototype.getDate = function() {
+    console.log("动态扩展方法2");
+  };
+}
+
+@logClass
+class HttpClient {
+  constructor() {}
+  getDate() {
+    console.log(1);
+  }
+}
+
+let http: any = new HttpClient();
+console.log(http.apiUrl);
+http.run();
+http.getDate();
+```
+
+装饰器会覆盖被装饰的类中的方法。
+
+### 装饰工厂
+
+可传参的装饰器
+
+```ts
+function logClassB(param: string) {
+  return function(target: any) {
+    console.log(target, "装饰器以下的类");
+    console.log(param, "装饰器传进来的属性");
+  };
+}
+
+@logClassB("小慧")
+class HttpClients {
+  constructor() {}
+  getDate() {}
+}
+
+let https: any = new HttpClients();
+console.log(https);
+```
+
+### 构造函数装饰器
+
+```ts
+function logClassC(target: any) {
+  console.log(target, 1111);
+  //用在这里继承目标类并重载方法和属性
+  return class extends target {
+    a: any = "我是修改后的属性";
+    getDate() {
+      console.log(this.a + "--装饰器中的方法输出的");
+    }
+  };
+}
+
+@logClassC
+class HttpClient2 {
+  public a: string | undefined;
+  constructor() {
+    this.a = "我是构造函数里面的a";
+  }
+  getDate() {
+    console.log(this.a);
+  }
+}
+const https2 = new HttpClient2();
+https2.getDate();
+```
