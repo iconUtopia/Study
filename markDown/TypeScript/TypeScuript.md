@@ -1,9 +1,57 @@
 # TypeScript
 
+###### 安装开发环境
+
+1. 安装 node.js
+2. `npm install typescript -g`或`yarn global add typescript` 全局安装 TypeScript
+
+###### 编译 ts 代码
+
 - node 无法直接运行 ts，所以需要通过运命令 `tsc xxx.ts` 将其转换为 js。然后 `node xxx.js` 运行 js 文件中的代码
-- `tsc`默认生成的是 ES4 的代码，我们编译的时候需要通过`--target ESx 1.js`指定 ts 编译的版本。也可以向在`tsconfig.json`中的`target`项配置
+- 过运命令 `tsc xxx.ts -w` 对 ts 文件进行实时监视，并编译为 js
+- 在项目根目录下输入命令`tsc -init`生成 tsconfig.json 编译配置文件
+- 有了配置文件后就可以在在项目根目录下输入命令 `tsc` 编译所有 ts 文件，也可以通过`tsc -w` 编译且监视所有 ts 文件
+- `tsc`默认生成的是 ES3 的代码，我们编译的时候需要通过`--target ESx 1.js`指定 ts 编译的版本。也可以向在`tsconfig.json`中的`target`项配置
 - 如果想直接运行 ts，可以通过 `npm install -g ts-node` 全局安装 ts-node,转换需要 3-5s
-- namespace + 空间名{},命名空间，防止变量冲突
+
+###### webpack 打包 ts
+
+1. 运行`npm init -y`生成 package.json 文件
+2. 运行`npm i -D webpack webpack-cli`安装 webpack 和 webpack 命令行工具
+3. 运行`npm i -D typescript ts-loader`安装 TS 环境和 TS 加载器
+4. 在 webpack.config.js 文件配置
+
+```js
+const path = require("path");
+module.exports = {
+  // 指定入口文件
+  entry: "./src/index.ts",
+  // 指定打包文件所在目录
+  output: {
+    // 指定打包文件的目录
+    path: path.resolve(__dirname, "dist"),
+    //打包后文件的文件名
+    filename: "bundle.js"
+  },
+  // 指定webpack打包时要用的模块
+  module: {
+    // 指定要加载的规则
+    rules: [
+      {
+        // 指定规则生效的文件
+        test: /\.ts$/,
+        // 要使用ts-loader 对 ts 文件进行处理
+        use: "ts-loader",
+        // 要排除的文件
+        exclude: /node_modules/
+      }
+    ]
+  }
+};
+```
+
+5. 配置 tsconfig.json
+6. 在 package.json 中配置 `"build":"webpack"`
 
 ## 基本数据类型
 
@@ -12,36 +60,37 @@
 - 布尔
 - undefined
 - null
+- any
+- unknown
 - 数组
 - 元组
 - 枚举
 - 对象
 - void
 - never
-- any
 
 ##### 数字
 
 ```ts
-const a: number = 1;
+const num: number = 1;
 ```
 
 ##### 字符串
 
 ```ts
-const b: string = "1";
+const str: string = "1";
 ```
 
 ##### 布尔
 
 ```ts
-const c: boolean = true;
+const bl: boolean = true;
 ```
 
 ##### null
 
 ```ts
-let e: null;
+let a: null;
 ```
 
 ##### undefined
@@ -49,7 +98,7 @@ let e: null;
 属于组合类型
 
 ```ts
-let d: number | undefined;
+let und: number | undefined;
 ```
 
 ##### any
@@ -57,50 +106,73 @@ let d: number | undefined;
 让参数可以是任何一种类型
 
 ```ts
-let h: any = 1;
-h = true;
-h = "st";
+let all: any = 1;
+all = true;
+all = "st";
+let a: string;
+a = all; // 不报错
 ```
 
-##### never
-
-其他类型 (包括 null 和 undefined)的子类型，表示的是那些永不存在的值的类型
+##### unknown
 
 ```ts
-let l: never;
+let un: unknown = 1;
+un = true;
+un = "st";
+let a: string;
+a = un; // 会报错
+```
 
-//匿名函数并抛出异常
-l = (() => {
-  throw new Error("111");
-})();
+`unknown` 类型的变量就是一个安全的`any`
+
+赋值处理方式
+
+```ts
+if (typeof un === "string") a = un;
+a = un as string; // 类型断言，可以用来告诉解析器变量的实际类型
+a = <string>un;
 ```
 
 ##### 数组
 
+5 中数组声明方式
+
 ```ts
-const f: number[] = [1, 2, 3];
-const g: Array<number> = [4, 5, 6];
-const h: any[] = [7, "8", true];
+const arr1: number[] = [1, 2, 3];
+const arr2 = [1, "2", true, undefined, null];
+const arr3: Array<number> = [1, 2, 3];
+const arr4: (string | number)[] = ["1", 2, "3"];
+
+type info = { name: string; age?: number; [propName: string]: any }; // 类型别名
+const arr5: info[] = [
+  { name: "xiaoZhi", age: 16 },
+  { name: "xiaoXia", age: 18 },
+  { name: "xiaoGang", age: 20 },
+  { name: "xiaoGang" },
+  { name: "xiaoGang", stature: 174 }
+];
 ```
+
+- 属性名后面接个 `?` 表示该属性可选
+- `[propName: string]: any` 表示 propName 是 string 类型的属性名，值是 any 类型
 
 ##### 元组
 
-可以为数组中的每个参数定义相对应的类型
+元祖的长度是固定的，可以为数组中的每个参数定义相对应的类型
 
 ```ts
-const j: [number, string, any] = [
-  1,
-  "2",
-  function() {
-    return 3;
-  }
-];
+const tuple: [number, string, any] = [1, "2", function() {}];
 ```
 
 ##### 对象
 
 ```ts
 const k: object = {};
+const l = {};
+const m: { name: string; age?: number; [propName: string]: any } = {
+  name: "小明",
+  stature: 170
+};
 ```
 
 ##### void
@@ -115,6 +187,16 @@ function aa(): void {
 //如果方法有返回值，可以加上返回值的类型
 function bb(): number {
   return 1;
+}
+```
+
+##### never
+
+其他类型 (包括 null 和 undefined)的子类型，表示的是永不返回结果
+
+```ts
+function nev(): never {
+  throw new Error("never 的正确使用方式");
 }
 ```
 
@@ -135,6 +217,8 @@ console.log(Person.Man);
 console.log(Person.Woman);
 // 也可以通过下标查找到Enum 类型对象的值
 console.log(Person.Boy, Person[0]);
+let person = { name: "小智", property: Person.Boy };
+console.log(person.property === Person.Man);
 ```
 
 1. 如果 **未赋值** 的上 **一个值是数字** 那么这个 **未赋值的值** 的是上一个值的值+1
@@ -147,6 +231,10 @@ console.log(Person.Boy, Person[0]);
 
 ```ts
 function cc(): void {}
+let fn: (a: number, b: number) => number;
+fn = function(n1: number, n2: number) {
+  return n1 + n2;
+};
 ```
 
 ### 方法传参
