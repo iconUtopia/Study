@@ -21,6 +21,15 @@
 3. 运行`npm i -D typescript ts-loader`安装 TS 环境和 TS 加载器
 4. 在 webpack.config.js 文件配置
 
+###### webpack 打包运行 ts 项目
+
+1. `npm i -D html-webpack-plugin`,自动生成 html 文件。然后在 webpack.config.js 中引入 `const HTMLWebpackPlugin = require("html-webpack-plugin")`
+2. webpack.config.js 中配置 `plugin`属性。`npm run build` 打包后生成 html 文件
+3. `npm i -D html-dev-serve`安装 webpack 内置服务器。然后命令行中运行 package.json 中的 scripts.start 的配置
+4. `npm i -D clean-webpack-plugin` 插件用于 `npm run build` 时清空 dist 中的旧文件。在 webpack.config.js 中引入`const {cleanWebpackPlugin} = require("clean-webpack-plugin")`配置
+5. 在 webpack.config.js 中配置。使 webpack 能识别引入的 ts 模块
+6. `npm i -D @babel/core @babel/preset-env babel-loader core-js` 解决代码兼容性问题
+
 ```js
 const path = require("path");
 module.exports = {
@@ -31,9 +40,14 @@ module.exports = {
     // 指定打包文件的目录
     path: path.resolve(__dirname, "dist"),
     //打包后文件的文件名
-    filename: "bundle.js"
+    filename: "bundle.js",
+    // 配置打包环境
+    environment:{
+      // webpack 不使用箭头函数
+      arrowFunction:false
+    }
   },
-  // 指定webpack打包时要用的模块
+  // 指定 webpack 打包时要用的模块
   module: {
     // 指定要加载的规则
     rules: [
@@ -41,17 +55,57 @@ module.exports = {
         // 指定规则生效的文件
         test: /\.ts$/,
         // 要使用ts-loader 对 ts 文件进行处理
-        use: "ts-loader",
+        use:[
+          // babel-loader用来处理代码兼容性
+          {
+            // 指定加载器
+            loader:"babel-loader",
+            // 设置 babel
+            options:{
+              // 设置预定义的环境
+              presets:[
+                [
+                  // 指定环境插件
+                  "@babel-preset-env",
+                  // 配置信息
+                  {
+                    targets:{
+                      "ie":"11", // 代码需要兼容到 ie 11版本
+                    }
+                    "corejs":"3", // 指定 corejs 版本
+                    "useBuiltIns":"usage", // 使用 corejs 的方式 "usage" 表示按需加载
+                  }
+                ]
+              ]
+            }
+          },
+          "ts-loader"
+        ] ,
         // 要排除的文件
         exclude: /node_modules/
       }
     ]
+  },
+  plugin: {
+    // 生成 html 入口文件
+    new HTMLWebpackPlugin({
+      title: "设置生成项目的 title",
+      template: "./src/index.html" // 根据模板生成 HTML
+    });
+    // 清除 打包文件夹里的旧文件
+    new cleanWebpackPlugin();
+  },
+  resolve: {
+    // 使webpack 识别 ts 文件模块
+    extensions: [".ts", ".js"];
   }
 };
 ```
 
-5. 配置 tsconfig.json
-6. 在 package.json 中配置 `"build":"webpack"`
+---
+
+1. 配置 tsconfig.json
+2. 在 package.json 中配置 `"build":"webpack"`
 
 ## 基本数据类型
 
@@ -334,9 +388,9 @@ console.log("---");
 
 ###### 访问修饰符
 
-1. public 在当前类里面，子类，类外面都可以访问
-2. protected 在当前类和子类内部可以访问，类外部无法访问
-3. private 在当前类内部可访问，子类，类外部都无法访问。
+1. public 访问修饰符：公共,在当前类里面，子类，类外面都可以访问
+2. protected 保护,在当前类和子类内部可以访问，类外部无法访问
+3. private 私有,在当前类内部可访问，子类，类外部都无法访问。
 
 ###### 只读修饰符
 
