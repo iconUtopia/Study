@@ -84,7 +84,7 @@ namespace TsClass {
   son.weight = 26;
   console.log(son.info);
 
-  // 类的多态，通过抽象方法/方法重载--实现多态--多态的作用是用来定义标准。抽象类中不要使用 private 关键字
+  // 类的多态，通过抽象方法/方法重载--实现多态--多态的作用是用来定义标准。抽象类中不要使用 private 关键字。抽象类不能用来创建实例
   abstract class Animal {
     // 抽象类
     name: string;
