@@ -5,7 +5,7 @@
  * 静态修饰符：静态属性(static)
  * 只读修饰符：只读属性(readonly)
  */
-namespace TsClass {
+namespace Class {
   // 类的使用、类的属性
   class Person {
     // readonly 只读属性，只能在声明同时赋予初始值，也可以在构造函数中赋值或修改初始值

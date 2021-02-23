@@ -4,7 +4,7 @@
  * 联合类型只提示公共的属性。
  * 只有在有联合类型的情况下才有类型保护（类型守护）
  */
-namespace Demo5 {
+namespace InterfaceUnionType {
   interface JieNiGui {
     tortoise: boolean;
     swim: () => {};

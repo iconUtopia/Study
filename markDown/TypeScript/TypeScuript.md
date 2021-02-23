@@ -830,7 +830,7 @@ export default getDate;
 ```
 
 ```ts
-import { getDate as getDbDate } from "./modules/db";
+// import { getDate as getDbDate } from "./modules/db";
 import getDbDate from "./modules/db";
 getDbDate();
 ```
@@ -891,7 +891,15 @@ ee.eat();
 
 ## 装饰器
 
+装饰器是一种**特殊类型**的声明，它能够被附加到类声明，方法，属性上，可以为原本额代码添加额外的功能。
+
+通俗的讲装饰器就是一个函数，可以注入到类、方法、属性参数上来扩展类、方法、属性的功能
+
+装饰器的写法：普通装饰器（无传参）、装饰器工厂（可传参）
+
 类装饰器：类装饰器在类申明之前被申明(紧靠着类申明)，类装饰器应用于类构造函数，可以用于监视，修改或者替换类定义。
+
+### 普通装饰器
 
 ```ts
 function logClass(params: any) {
