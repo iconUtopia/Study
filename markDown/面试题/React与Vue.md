@@ -26,15 +26,11 @@ ES6：
 1. 导入外部的变量或函数等：`impot{firstName,lastName,year}from'./profle';`
 2. 导入外部的模块，并立即执行：`import'./test'`执行 test.js，但不导入任何变量。
 
-### vue 的双向绑定
-
-基于 MVVM 视图的更新引起 model 的更新，model 的改变引起视图的改变。
-
-### Vue 实现数据双向绑定的原理
+### Vue2.0/3.0 的数据双向绑定的实现原理
 
 vue.js 是采用数据劫持结合发布者-订阅者模式的方式，vue 会遍历 data 项的属性，通过`Object.defineProperty()`来劫持各个属性的 setter、getter，在数据变动时发布消息给订阅者(Watcher)，触发相应的监听回调。
 
-具体实现步骤：
+**具体实现步骤：**
 
 1. 当把一个普通 Javascript 对象传给 Vue 实例来作为它的 data 选项时，Vue 将遍历它的属性，用 Object.defineProperty 都加上 setter 和 getter 这样的话，给这个对象的某个值赋值，就会触发 setter，那么就能监听到了数据变化
 2. compile 解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图
@@ -43,6 +39,92 @@ vue.js 是采用数据劫持结合发布者-订阅者模式的方式，vue 会�
    2. 自身必须有一个 update()方法
    3. 待属性变动 dep.notice()通知时，能调用自身的 update()方法，并触发 Compile 中绑定的回调，则功成身退。
 4. MVVM 作为数据绑定的入口，整合 Observer、Compile 和 Watcher 三者，通过 Observer 来监听自己的 model 数据变化，通过 Compile 来解析编译模板指令，最终利用 Watcher 搭起 Observer 和 Compile 之间的通信桥梁，达到数据变化 -> 视图更新；视图交互变化(input) -> 数据 model 变更的双向绑定效果
+
+```html
+<body>
+  姓名：<span id="spanName"></span>
+  <br />
+  <input type="text" id="inpName" />
+</body>
+```
+
+**ES5：Object.defineProperty**
+
+```js
+let obj = { name: "" };
+// let newObj = obj;
+let newObj = JSON.parse(JSON.stringify(obj));
+Object.defineProperty(obj, "name", {
+  get() {
+    return newObj.name;
+  },
+  set(val) {
+    if (val === newObj.name) return;
+    newObj.name = val;
+    observe();
+  }
+});
+
+function observe() {
+  spanName.innerHTML = obj.name;
+  inpName.value = obj.name;
+}
+// 数据的更改影响视图
+setTimeout(() => {
+  console.log("setTimeout");
+  obj.name = "Object.defineProperty";
+}, 1000);
+// 视图的改变影响数据
+inpName.oninput = function() {
+  obj.name = this.value;
+};
+```
+
+1. 需要对原始数据克隆
+2. 需要分别给对象中的每一个属性设置监听
+
+ES6：Proxy
+
+```js
+obj = new Proxy(obj, {
+  get(target, prop) {
+    return target[prop];
+  },
+  set(target, prop, val) {
+    target[prop] = val;
+    observe();
+  }
+});
+function observe() {
+  spanName.innerHTML = obj.name;
+  inpName.value = obj.name;
+}
+// 数据的更改影响视图
+setTimeout(() => {
+  console.log("setTimeout");
+  obj.name = "Object.defineProperty";
+}, 1000);
+// 视图的改变影响数据
+inpName.oninput = function() {
+  obj.name = this.value;
+};
+```
+
+> 答：因为我们现在用的基本都是 2.0，3.0 还没开始运用。运用了 2.0 一段时间后开始研究它的底层实现原理，然后才知道是运用的 es5 的 Object.defineProperty 来进行数据拦截的。然后现在不是推广 3.0 了嘛，然后也去看了些关于 3.0 的文章，感觉 3.0 对于 vue 有跨时代的意义。3.0 采用的是 Proxy 实现数据双向绑定
+
+基于 MVVM 视图的更新引起 model 的更新，model 的改变引起 View 的改变。
+
+#### 对于 MVVM 的理解？
+
+MVVM 是 Mode-View-ViewModel 的缩写
+
+- Model：代表**数据模型**，也可以在 Model 中定义数据修改和操作的业务逻辑
+- View：代表**UI 组件**，它负责将数据模型转化成 UI 展现出来。
+- ViewModel：**监听**模型数据的改变和控制视图更新、处理用户交互，简单理解就是一个同步 View 和 Model 的对象，连接 Model 和 View。
+
+在 MVVM 架构下，View 和 Model 之间没有直接的联系，而是通过 ViewModel 进行交互，Model 和 ViewModel 之间的是双向数据绑定的联系。因此 View 数据的变化会同步到 Model 中，而 Model 数据变化也会立即反应到 View 上。
+
+ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而 View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需要关注业务逻辑，而不需要手动操作 DOM，不需要关注数据状态的同步问题，复杂的数据状态维护完全有 MVVM 来统一管理。
 
 ### template 模板渲染语法和原理（vue-loader、虚拟 DOM）
 
@@ -336,16 +418,6 @@ const store = new Vuex.Store({
 
 ## 10.其他
 
-### 对于 MVVM 的理解？
-
-MVVM 是 Mode-View-ViewModel 的缩写
-
-- Model：代表**数据模型**，也可以在 Model 中定义数据修改和操作的业务逻辑
-- View：代表**UI 组件**，它负责将数据模型转化成 UI 展现出来。
-- ViewModel：**监听**模型数据的改变和控制视图更新、处理用户交互，简单理解就是一个同步 View 和 Model 的对象，连接 Model 和 View。
-  在 MVVM 架构下，View 和 Model 之间没有直接的联系，而是通过 ViewModel 进行交互，Model 和 ViewModel 之间的是双向数据绑定的联系。因此 View 数据的变化会同步到 Model 中，而 Model 数据变化也会立即反应到 View 上。
-  ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而 View 和 Model 之间的同步工作完全是自动的，无需认为干涉，因此开发者只需要关注业务逻辑，而不需要手动操作 DOM，不需要关注数据状态的同步问题，复杂的数据状态维护完全有 MVVM 来统一管理。
-
 ### Vue 的生命周期
 
 1. beforeCreate（创建前）：在数据观测和初始化事件还未开始。
@@ -504,7 +576,7 @@ keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状�
 
 vi-if 按照条件是否渲染，v-show 是 display 的 block 或 none；
 
-#### $route和$router 的区别
+#### `$route`和`$router` 的区别
 
 $route是“路由信息对象”，包括path，params，hash，query，fullPath，matched，name等路由信息参数。而$router 是“路由示例”对象包括了路由的跳转方法，钩子函数等。
 
@@ -611,6 +683,8 @@ function createKeyToOldIdx (children, beginIdx, endIdx) {
 
 ### 开发时，改变数组或者对象的数据，但是页面没有更新如何解决？
 
+vue 提供了`$set`方法强制刷新页面
+
 ### vue 弹窗后如何禁止滚动条滚动？
 
 ### 如何在 vue 项目里正确地引用 jquery 和 jquery-ui 的插件
@@ -659,17 +733,15 @@ function createKeyToOldIdx (children, beginIdx, endIdx) {
 
 ## 7. umi
 
-## 8. mobx
+## 8. TypeScript
 
-## 9. antd
+## 9. UI 组件库
 
-## 10. antd pro
+## 10. SSR
 
-## 11. SSR
+## 11. 优化
 
-## 12. 优化
-
-## 13. 其他
+## 12. 其他
 
 ### react 的部署，状态机和组件的传值怎么处理？
 
@@ -692,6 +764,13 @@ react 响应非常快，是因为它不直接与 DOM 进行比较，对 DOM 的�
 Redux 的 dispatch 最终也是会调用 react 的 setState。只使用 react，每个组件都可以有一个 state，每个组件各自管理各自的 state，如果更改 state 每个组件都需要使用 setState。Redux 将所有组件的 state 维护成一个全局的 state，保存到 store 里，需要更改 state 只需要 store 里些修改。
 
 # 框架对比
+
+## MVC 和 MVVM 的却别
+
+- MVC：单向数据改变，默认只实现了数据的更改控制了视图
+- MVVM：双向数据改变，不仅实现了数据控制视图，也实现了视图控制数据`onchange()`
+
+> 答：没区别，MVC 和 MVVM 都实现了数据影响视图，无非是 MVVM 默认替我们做好了视图影响数据，通过 onchange 或 oninput 就能达成视图影响数据了
 
 ## Vue 和 AngularJS 的区别
 
