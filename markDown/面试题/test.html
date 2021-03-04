@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    姓名：<span id="spanName"></span>
+    <br />
+    <input type="text" id="inpName" />
+  </body>
+  <script>
+    let arr = [12, 3, 42, 5, 64, 1];
+    function quick(arr) {
+      console.log(
+        "%c 🍾 arr: ",
+        "font-size:20px;background-color: #4b4b4b;color:#fff;",
+        arr
+      );
+      if (arr.length <= 1) return arr;
+      let middleValue = arr.splice(Math.floor(arr.length / 2), 1)[0],
+        arrR = [],
+        arrL = [];
+      console.log(
+        "%c 🍿 middleValue: ",
+        "font-size:20px;background-color: #F5CE50;color:#fff;",
+        middleValue
+      );
+      for (let i = 0; i < arr.length; i++) {
+        arr[i] > middleValue ? arrR.push(arr[i]) : arrL.push(arr[i]);
+      }
+      console.log(
+        "%c 🍚 arrR: ",
+        "font-size:20px;background-color: #33A5FF;color:#fff;",
+        arrR
+      );
+      console.log(
+        "%c 🍼️ arrL: ",
+        "font-size:20px;background-color: #ED9EC7;color:#fff;",
+        arrL
+      );
+      return quick(arrL).concat(middleValue, quick(arrR));
+    }
+    console.log(quick(arr));
+  </script>
+</html>
