@@ -7,42 +7,14 @@
     <title>Document</title>
   </head>
   <body>
-    姓名：<span id="spanName"></span>
-    <br />
-    <input type="text" id="inpName" />
+    <div id="divBox1" class="div-box1"></div>
+    <div id="divBox2" class="div-box2"></div>
+    <div id="divBox3" class="div-box1"></div>
+    <div id="divBox4" class="div-box"></div>
+    <div id="divBox5" class="div-box2"></div>
+    <div id="divBox6" class="div-box div-box1 div-box2"></div>
+    <div id="divBox7" class="div-box3"></div>
   </body>
   <script>
-    let arr = [12, 3, 42, 5, 64, 1];
-    function quick(arr) {
-      console.log(
-        "%c 🍾 arr: ",
-        "font-size:20px;background-color: #4b4b4b;color:#fff;",
-        arr
-      );
-      if (arr.length <= 1) return arr;
-      let middleValue = arr.splice(Math.floor(arr.length / 2), 1)[0],
-        arrR = [],
-        arrL = [];
-      console.log(
-        "%c 🍿 middleValue: ",
-        "font-size:20px;background-color: #F5CE50;color:#fff;",
-        middleValue
-      );
-      for (let i = 0; i < arr.length; i++) {
-        arr[i] > middleValue ? arrR.push(arr[i]) : arrL.push(arr[i]);
-      }
-      console.log(
-        "%c 🍚 arrR: ",
-        "font-size:20px;background-color: #33A5FF;color:#fff;",
-        arrR
-      );
-      console.log(
-        "%c 🍼️ arrL: ",
-        "font-size:20px;background-color: #ED9EC7;color:#fff;",
-        arrL
-      );
-      return quick(arrL).concat(middleValue, quick(arrR));
-    }
-    console.log(quick(arr));
   </script>
 </html>
