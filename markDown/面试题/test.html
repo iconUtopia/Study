@@ -6,15 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body>
-    <div id="divBox1" class="div-box1"></div>
-    <div id="divBox2" class="div-box2"></div>
-    <div id="divBox3" class="div-box1"></div>
-    <div id="divBox4" class="div-box"></div>
-    <div id="divBox5" class="div-box2"></div>
-    <div id="divBox6" class="div-box div-box1 div-box2"></div>
-    <div id="divBox7" class="div-box3"></div>
-  </body>
+  <body></body>
   <script>
+    function add() {
+      // 第一次执行时，顶一个数组用来存储所有参数
+      let args = Array.prototype.slice.call(arguments);
+      // 在内部声明一个函数，利用闭包的特性保存 args 并收集所有的参数
+      let adder = function() {
+        args.push(...arguments);
+        return adder;
+      };
+      // 利用 toString 隐式转换的特性，当最后执行时隐式转换，并计算最终的返回值
+      adder.toString = () =>
+        args.reduce((previous, current) => previous + current);
+      return adder;
+    }
+    add(1)(2)(4)(7);
   </script>
 </html>
