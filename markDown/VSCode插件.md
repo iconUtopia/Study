@@ -1,138 +1,207 @@
 # Visual Studio Code 插件
 
-[Markdown 上手指南](https://juejin.im/post/5df0c2556fb9a0164939455e)
+as
 
-## 我的插件（共 66）
+### Chinese (Simplified) Language Pack for Visual Studio Code
 
-- **Settings Sync**：Settings Sync 可以同步你当前的 VSCode 配置环境，当你需要在其它的电脑工作时，您不用重头再来一遍。新机器登录一下就搞定了。再也不用折腾环境了。
-
-### 代码提示
-
-- **Path Autocomplete**：路径智能补全。（自动，可配置）
-- **Atom JavaScript Snippet**：移植自 Atom 的 JavaScript 插件。（自动）
-- **JavaScript (ES6) code snippets**：此扩展包含 Vs 代码编辑器的 ES6 语法的 JavaScript 代码片段（同时支持 JavaScript 和 TypeScript）。（自动）
-- **JavaScript Snippets**：ES6 代码片段，并且包含 Mocha、Jasmine 和其它 BDD 测试框架的代码片段。（自动）
-- **JavaScript Snippet Pack**：JavaScript ES5 及以下的代码片段集合。（自动）
-- **CSS-in-JS**：在 JS 提供 CSS 自动补全。（自动）
-- **HTML CSS Support**：让 html 标签上写 class 智能提示当前项目已经定义了类名样式。（自动，可配置）
-- **HTML Snippets**：智能提示 HTML 标签，以及标签含义。（自动）
-- **IntelliSense for CSS class names in HTML**：可以在 HTML 中需要调用 CSS 类名的地方，此插件会智能地给你已定义 CSS 类名的提示。（自动）
-- **Visual Studio IntelliCode**：提供 AI 支持(强化你的代码智能提示),微软出品
-
-### 代码格式化
-
-- **HTMLHint**：html 代码检测。（自动，可配置）
-- **Auto Close Tag**：自动闭合 HTML 标签。（自动）
-- **Auto Rename Tag**：修改 HTML 标签时，自动修改匹配的标签。（自动）
-- **lit-html**：在 JavaScript/TypeScript 的文件中，如果有使用到 HTML 标记，lit-html 提供语法高亮和相应的补全支持。（自动，可配置）
-- **ESLint**：JavaScript 代码检查工具。（自动，可配置）
-- **Prettier - Code formatter**：这是一款代码格式化插件。（按触，可配置）
-- **Trailing Spaces**：自动删除 Trailing Spaces，Trailing Spaces 就是一行最后一个非空字符后的空格。（自动）
-- **change-case**：change-case 提供了一种简单的方法来将单词或变量名更改为各种情况，包括 camelCase、snake_case、TitleCase…… 这种再多人合作, 遇到不一致的代码时, 可以极大地提高效率。
-
-### 代码可视化改善
-
-- **colorize**：可视化 CSS 颜色。（自动）
-- **Better Comments**：对不同类型的注释会附加不同的颜色。（自动，可配置）
-- **Bracket Pair Colorizer 2**：给括号添加不同的颜色。（自动）
-- **Indenticator**：缩进对齐辅助线.（自动）
-
-### 代码审查
-
-- **Import Cost**：显示引入包的大小。（自动）
-- **GitLens — Git supercharged**：GitLens 能增强 Visual Studio 代码中内置的 Git 功能。它帮助您通过 Git blame 注解和代码镜头直观地显示代码作者，无缝地导航和探索 Git 存储库，通过强大的比较命令获得有价值的见解。（自动）
-- **Code Spell Checker**：代码变量单词拼写检查。（自动）
-- **CSS Peek**：可以追踪至样式表中 CSS 的类和 id 定义的样式地方。（自动，Ctrl+鼠标左键）
-- **filesize**：在 VSCode 左下角显示当前文件大小的插件。（自动）
-- **indent-rainbow**：通过颜色区分, 让你一眼就看出缩进。（自动）
-
-### 调试插件
-
-- **Debugger for Chrome**：在 Chrome 上运行代码。(可配置)
-- **Debugger for Firefox**：在 Firefox 上运行代码。(可配置)
-- **open in browser**：在浏览器中运行 html 文件.
-- **Live Server**：在本地开发环境中，实时重新加载(reload)页面。（alt+L, O 打开服务；alt+L, C 关闭服务，可配置）
-- **REST Client**：接口测试。 _!important_
-- **javascript console utils**：快速生成 console.log(选中)。
-- **Turbo Console Log**：按住 ctrl + option + L(windows: ctrl + alt + L)，就能在变量下方自动插入一个 console.log
-- **clear-console**：快速清除当前文件内的 console.log 信息,很实用
-- **Code Runner**：快捷的方式来运行各类的代码，甚至是代码片段。（按触，可配置）
-
-### JQuery
-
-- **jQuery Code Snippets**：提供超过 130 个 jQuery 代码片段。
-
-### Vue 插件
-
-- **Vetur**:语法高亮、智能感知、Emmet 等。（自动，可配置）
-- **Vue 2 Snippets**:这个插件基于最新的 Vue 官方语法高亮文件添加了语法高亮，并且依据 Vue 2 的 API 添加了代码片段。（自动）
-- **Vue Peek**:点击父组件快速导航到 vue 子组件。（自动，Ctrl+鼠标左键）
-- **Axios Snippets**：axios 的默认 api 智能提示,ts/html/js/vue 都支持..不支持 react(看它的发包 json)
-
-### Node 插件
-
-- **Node Debug**：此扩展与 Visual Studio Code 捆绑在一起，并与 Node Debug（旧版）一起形成 Node.js 调试体验。
-- **npm**:运行 npm 命令。
-- **npm Intellisense**:导入模块时，提示已安装模块名称。
-
-### 开发体验优化插件
-
-- **Chinese (Simplified) Language Pack for Visual Studio Code**：VSCode 中文补丁。（自动）
-- **fileheader**:顶部注释模板，可定义作者、时间等信息，并会自动更新最后修改时间。（可配置）
-- **Easy LESS**：将 less 文件转为 css、wxss、acss 文件。（可配置）
-- **fix-ctrl-space**：在 windows10 环境中，vscode 的显示代码建议快捷键 ctrl+空格被微软拼音占用，并且无法屏蔽。此插件的作用是将 vscode 的显示代码建议的快捷键 ctrl+空格 改为 ctrl+alt+空格。
-- **Project Manager**：切换开发项目。（可配置）
-- **px to rem**：px 换 rem。（可配置）
-- **Quokka.js**：Quokka 是一个调试工具，可以为您正在编写的代码提供实时反馈。它能够预览变量的函数和计算值结果。该扩展易于配置，对于使用 JSX 或 TypeScript 的项目可直接使用。（自动）
-- **Error Gutters**:把错误显示为图标，让错误、警告更加明显。（自动）
-- **RegExp Preview and Editor**：正则图形化。（选中正则点击鼠标右键...）
-- **any-rule**：快速查看且引用常用的正则。（）
-- **SVG Viewer**：一个用来预览 SVG 的插件。
-
-### 协作开发
-
-- **Live Share**：实时协作开发。 _!important_
-- **Live Share Whiteboard**：Live Share 画板支持,这下子不仅代码能协作,思路也能演示了
-
-### Markdown 插件
-
-- **Markdown Preview Enhanced**：涵盖的东西很多,上至公式下至导出(装了这个其他都是可以选装了),不过你要跟着它提供的文档把对应的功能点依赖给补齐了
-- **Markdown All in One**：Markdown 的提示插件用这一个足以，集成了语法快捷键、Math、预览等，很实用。
-- **Markdown Preview Github Styling**：Github 使用的 Markdown 渲染样式。
-- **Markdown PDF**：把 MD 转为 PDF,支持 emoji,checkbox 和语法高亮
-
-### 主题
-
-- Dracula Official
-- Eva Theme
-
-### 图标
-
-- Material Icon Theme
+此中文（简体）语言包为 VS Code 提供本地化界面。
 
 ---
 
-## Settings Sync
+## 代码补全
 
-[使用方式](https://zhuanlan.zhihu.com/p/113222681)
+### HTMLHint
 
-## HTMLHint
+html 代码检测
 
-[HTMLHint 规则详解](https://segmentfault.com/a/1190000013276858)
+### HTML Snippets
 
-[HTMLHint 配置](https://segmentfault.com/a/1190000013273077)
+智能提示 HTML 标签，以及标签含义
 
-## ESLint
+### HTML CSS Support
 
-[vscode 配置 vue+vetur+eslint+prettier 自动格式化功能](https://juejin.im/post/5e762fb9f265da573e6749bb)
+智能提示 CSS 类名以及 id
 
-## Prettier - Code formatter
+### IntelliSense for CSS class names in HTML
 
-## change-case
+为 HTML 类属性提供 CSS 类名补全。
 
-## Better Comments
+### Auto Close Tag
 
-better-comments.tags
+自动添加 HTML / XML 关闭标签
+
+### css-auto-prefix
+
+写 CSS 时不再为浏览器前缀发愁
+
+### Auto Rename Tag
+
+修改时自动修改对应的闭合标签
+
+### JavaScript (ES6) code snippets
+
+这个扩展包含了 Vs 代码编辑器的 ES6 语法中的 JavaScript 代码片段(支持 JavaScript 和 TypeScript)。
+
+### JavaScript Snippet Pack
+
+[快速的代码片段包](https://blog.csdn.net/weixin_44713430/article/details/100866242)
+
+###### 配置:
+
+要在键入`</`时自动添加关闭标签，请将以下配置设置为`true`：
+
+```json
+"auto-close-tag.SublimeText3Mode": true
+```
+
+### CSS-in-JS
+
+在 JS 自动补全中提供 CSS 并将 kebab-case CSS 转换为 camelCase CSS，反之亦然
+
+###### 使用
+
+在 javascript 或 typescript 文件中选择一些文本块，使用 cmd+shift+p 打开命令面板，然后选择转换 CSS-in-JS。或者使用键盘快捷键 cmd+shift+j (Windows 下为 ctrl+shift+j)。
+
+### Axios Snippets
+
+axios 代码片段提示
+
+### jQuery Code Snippets
+
+超过 130 个 jQuery 代码片段用于 JavaScript 代码。只需键入字母'jq'，就可以得到所有可用 jQuery 代码片段的列表。
+
+### Visual Studio IntelliCode
+
+Visual Studio IntelliCode 扩展为 Visual Studio Code 中的 Python，TypeScript / JavaScript 和 Java 开发人员提供了 AI 辅助的开发功能，并基于对代码上下文的理解和机器学习的结合获得了见解。
+
+### Vue 3 Snippets
+
+这个插件基于最新的 Vue 2 及 Vue 3 的 API 添加了 Code Snippets。
+
+---
+
+## 代码调试
+
+### Import Cost
+
+这个扩展将在编辑器内显示导入包的大小。该扩展利用 webpack 与 babili-webpack-plugin，以检测导入的大小。
+
+### Image preview
+
+快速预览 HTML 中的图片
+
+###### 使用
+
+当鼠标移到 html 文档中的图片路径上时，悬浮预览图片，还可跳转到侧边栏文件管理器中或系统文件管理器中
+
+### Path Intellisense
+
+智能补全 html 文件中的文件路径。
+
+### Code Runner
+
+不需要繁琐的“调试”配置，Code Runner 可以快速地以最简洁的方式运行你的任何代码！
+
+###### 运行
+
+1. 键盘快捷键 Ctrl+Alt+N
+2. 快捷键 F1 或 Ctrl+Shift+P 调出 命令面板, 然后输入 Run Code
+3. 在编辑区右键选择 Run Code
+4. 在侧边栏文件管理器中右键你要运行的文件，选择 Run Code
+5. 右上角的运行小三角按钮
+
+###### 停止
+
+1. 键盘快捷键 Ctrl+Alt+M
+2. 快捷键 F1 或 Ctrl+Shift+P 调出 命令面板, 然后输入 Stop Code Run
+
+###### 配置
+
+```json
+"code-runner.runInTerminal": true,//在控制台运行代码，防止乱码和不能输入
+"code-runner.executorMap": {
+    "javascript": " cls && cd /d $dir && node $fullFileName && pause",
+    "python": " cls && cd /d $dir && \"$pythonPath\" -u $fullFileName && pause",
+    "bat": " cls && cd /d $dir && $fullFileName"
+    /*这是每种语言运行时所执行命令的对应表，因为笔者使用的语言有限，这里只列出了javascript、python和windows批处理的命令，其他语言的命令可自行添加*/
+    /*笔者其他博客中可能会有关于对此设置项的添加或删改的内容*/
+},
+"code-runner.saveFileBeforeRun": true, //运行前自动保存
+"code-runner.customCommand": " cls",//这使Ctrl+Alt+K这个快捷键可以快速清空控制台内容
+"code-runner.clearPreviousOutput": true,//似乎没啥用，好像是自动清除控制台多余内容，开着吧
+"code-runner.respectShebang": false//我是Windows系统所以不需要按shebang来运行
+```
+
+### CSS Peek
+
+快速查看定位 CSS 定义非常的方便
+
+###### 使用
+
+按住 ctrl 同时移到鼠标到要查看样式的类上就可以看到该类的定义了。按住 ctrl 键同时点击样式类的名称或者在类的名称上按 F12 键即可跳转到样式的定义。
+
+### Debugger for Chrome
+
+不用打开浏览器的控制台就能进行打断点。
+
+###### 使用
+
+[教程](https://blog.csdn.net/weixin_45295262/article/details/110299445)
+
+### Live Server
+
+实时地使用浏览器预览你的前端页面
+
+###### 使用
+
+在侧边栏文件资源管理器中右键文件选择 Open with Live Server 启动，或打开编辑 html 文件时点击 vscode 下方状态栏右边的 Go Live 启动：
+
+###### 停止
+
+快捷键 F1 或 Ctrl+Shift+P 调出 命令面板, 然后输入 Stop Live Server 以停止 Live Server 服务器。
+
+### open in browser
+
+使用 Alt + B 快捷方式在默认浏览器中打开当前的 html 文件，或 Shift + Alt + B 选择一个浏览器
+
+### REST Client
+
+[REST 客户机允许您发送 HTTP 请求并直接在 Visual Studio 代码中查看响应。](https://blog.csdn.net/weixin_42940467/article/details/114119345)
+
+---
+
+## 格式化
+
+### ESLint
+
+[介绍](https://www.cnblogs.com/jiaoshou/p/12218642.html)
+[使用](https://www.cnblogs.com/codexlx/p/14371582.html)
+
+### Prettier - Code formatter
+
+Prettier 是一个固执己见的代码格式化程序。它通过解析代码并使用自己的规则(考虑到最大行长)重新打印代码来实现一致的风格，并在必要时包装代码。
+
+### Vetur
+
+语法高亮、智能感知
+
+---
+
+## 便捷类插件
+
+### 会了吧
+
+### 驼峰翻译助手
+
+### any-rule
+
+### Better Comments
+
+更好辨识的注释色彩
+
+###### 配置：
+
+自定义注释颜色
 
 ```json
 "better-comments.tags": [
@@ -169,331 +238,129 @@ better-comments.tags
 ]
 ```
 
-## Debugger for Chrome
+### Bracket Pair Colorizer 2
 
-https://juejin.im/post/58c0c2e344d90400697213f2
+添加括号颜色加以区分
 
-## Live Server
+###### 配置
 
-[Live Server](https://blog.csdn.net/chy555chy/article/details/104410785)
+定义用于 着色括号。接受有效的颜色名称，十六进制代码和 rgba()值
 
-[在 vscode 中使用 Live Server 进行调试](https://blog.csdn.net/LonewoIf/article/details/86624598)
-
-## Live Share
-
-## Live Share Whiteboard
-
-## Code Runner
-
-https://zhuanlan.zhihu.com/p/54861567
-
-## Vetur
-
-## fileheader
-
-## Easy LESS
-
-## Project Manager
-
-## px to rem
-
-## REST Client
-
-## Markdown Preview Enhanced
-
-https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/usages
-
-# setting.json
 ```json
-{
-  // 自动換行
-  "editor.wordWrap": "on",
-  // 控制代码片段是否与其他建议一起显示及其排列的位置。
-  //  - top: 在其他建议上方显示代码片段建议。
-  //  - bottom: 在其他建议下方显示代码片段建议。
-  //  - inline: 在其他建议中穿插显示代码片段建议。
-  //  - none: 不显示代码片段建议。
-  "editor.snippetSuggestions": "top",
-  // 控制是否在打开文件时，基于文件内容自动检测 `editor.tabSize` 和 `editor.insertSpaces`。
-  "editor.detectIndentation": false,
-  // 一个制表符等于的空格数。在 `editor.detectIndentation` 启用时，根据文件内容，该设置可能会被覆盖。
-  "editor.tabSize": 2,
-  // 按 `Tab` 键时插入空格。该设置在 `editor.detectIndentation` 启用时根据文件内容可能会被覆盖。
-  "editor.insertSpaces": true,
-  // #每次保存的时候将代码按eslint格式进行修复 使用eslint 風格使用standard 進行代碼規則限制
-  "editor.fontWeight": "450",
-  // 控制编辑器在键入一行后是否自动格式化该行。
-  "editor.formatOnType": false,
-  // 字體大小
-  "editor.fontSize": 16,
-  // 設置行高
-  "editor.lineHeight": 21,
-  // 设置 Fira Code 字体
-  "editor.fontFamily": "Fira Code",
-  // 启用或禁用字体连字。
-  "editor.fontLigatures": true,
-  // 控制是否显示侧边的代码缩略图。
-  "editor.minimap.enabled": false,
-  // 渲染每行的实际字符，而不是色块。
-  "editor.minimap.renderCharacters": false,
-  // 控制编辑器是否自动格式化粘贴的内容。格式化程序必须可用，并且能针对文档中的某一范围进行格式化。
-  "editor.formatOnPaste": false,
-  // 编辑器内的光标样式
-  "editor.cursorStyle": "line-thin",
-  // 光标闪烁样式
-  "editor.cursorBlinking": "expand",
-  // 控制编辑器是否显示控制字符。
-  "editor.renderControlCharacters": true,
-  // 控制编辑器在空白字符上显示符号的方式。
-  //  - none
-  //  - boundary: 除了单个空格，在空白字符上显示符号。
-  //  - all
-  "editor.renderWhitespace": "boundary",
-  // 是否在编辑器中显示 CodeLens。
-  "editor.codeLens": true,
-  // 控制在建议列表中如何预先选择建议。
-  //  - first: 始终选择第一个建议。
-  //  - recentlyUsed: 选择最近的建议，除非进一步键入选择其他项。例如 `console. -> console.log`，因为最近补全过 `log`。
-  //  - recentlyUsedByPrefix: 根据之前补全过的建议的前缀来进行选择。例如，`co -> console`、`con -> const`。
-  "editor.suggestSelection": "first",
-  // 在保存时运行的代码操作类型。
-  "editor.codeActionsOnSave": {
-    "source.fixAll": true
-  },
-  // 在保存时格式化文件。格式化程序必须可用，延迟后文件不能保存，并且编辑器不能关闭。
-  "editor.formatOnSave": false,
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[vue]": {
-    "editor.defaultFormatter": "octref.vetur"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "vscode.html-language-features"
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[wxml]": {
-    "editor.defaultFormatter": "qiu8310.minapp-vscode"
-  },
-  "team.showWelcomeMessage": false,
-  // 调整窗口的缩放级别。原始大小是 0，每次递增(例如 1)或递减(例如 -1)表示放大或缩小 20%。也可以输入小数以便以更精细的粒度调整缩放级别。
-  "window.zoomLevel": 0,
-  "extensions.ignoreRecommendations": true,
-  // 根据活动编辑器控制窗口标题。变量是根据上下文替换的:"${activeEditorShort}": 文件名 (例如 myFile.txt)。
-  // - "${activeEditorMedium}": 相对于工作区文件夹的文件路径 (例如, myFolder/myFileFolder/myFile.txt)。
-  // - "${activeEditorLong}": 文件的完整路径 (例如 /Users/Development/myFolder/myFileFolder/myFile.txt)。
-  // - "${activeFolderShort}": 文件所在的文件夹名称 (例如, myFileFolder)。
-  // - "${activeFolderMedium}": 相对于工作区文件夹的、包含文件的文件夹的路径, (例如 myFolder/myFileFolder)。
-  // - "${activeFolderLong}": 文件所在文件夹的完整路径 (例如 /Users/Development/myFolder/myFileFolder)。
-  // - "${folderName}": 文件所在工作区文件夹的名称 (例如 myFolder)。
-  // - "${folderpath}": 文件所在工作区文件夹的路径 (例如 /Users/Development/myFolder)。
-  // - "${rootName}": 工作区的名称 (例如, myFolder 或 myWorkspace)。
-  // - "${rootPath}": 工作区的文件路径 (例如 /Users/Development/myWorkspace)。
-  // - "${appName}": 例如 VS Code。
-  // - "${dirty}": 表示活动编辑器为脏的脏指示器。
-  // - "${separator}": 一种条件分隔符 ("-"), 仅在被包含值或静态文本的变量包围时显示。
-  "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
-  // 控制菜单栏的可见性。“切换”设置表示隐藏菜单栏，按一次 Alt 键则将显示此菜单栏。默认情况下，除非窗口为全屏，否则菜单栏可见。
-  //  - default: 菜单仅在全屏模式下隐藏。
-  //  - visible: 菜单始终可见，即使处于全屏模式下。
-  //  - toggle: 菜单隐藏，但可以通过 Alt 键显示。
-  //  - hidden: 菜单始终隐藏。
-  "window.menuBarVisibility": "toggle",
-  // eslint 代码自动检查相关配置
-  // 开启或关闭eslint自动修复。
-  "eslint.autoFixOnSave": true,
-  // 控制是否为JavaScript文件启用eslint。
-  "eslint.enable": true,
-  // 在save (onSave)或type (onType)上运行linter
-  "eslint.run": "onType",
-  // 始终显示ESlint状态栏项目。
-  "eslint.alwaysShowStatus": true,
-  // eslint选项对象提供从命令行执行时通常传递给eslint的args（请参阅http://eslint.org/docs/developer-guide/nodejs-api#cliengine）。
-  "eslint.options": {
-    // "configFile": "D:/.eslintrc.js",
-    "plugins": [
-      "html"
-    ],
-    "extensions": [
-      ".js",
-      ".vue"
-    ]
-  },
-  // 一组应该由ESLint验证的语言id
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    {
-      "language": "html",
-      "autoFix": true
-    },
-    {
-      "language": "vue",
-      "autoFix": true
-    }
-  ],
-  // 使用'prettier-eslint'代替'prettier'。 其他设置只会在无法从eslint规则中推断出来的情况下作为备用。
-  "prettier.eslintIntegration": true,
-  // 是否在每行的末尾添加分号
-  "prettier.semi": false,
-  // 是否使用单引号替代双引号
-  "prettier.singleQuote": true,
-  // 用于禁用此扩展的语言id列表
-  "prettier.disableLanguages": [],
-  // 定义函数参数括号前的空格处理方式。
-  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-  // 定义匿名函数的函数关键字后面的空格处理。
-  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
-  // 当在 VS Code 中重命名或移动文件时，启用或禁用自动更新导入路径。要求工作区使用高于 2.9 版本的 TypeScript。
-  //  - prompt: 在每次重命名时进行提示。
-  //  - always: 始终自动更新路径。
-  //  - never: 一律不要重命名路径，也不要提示。
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  // 定义控制块的左括号是否放置在新的一行。
-  "javascript.format.placeOpenBraceOnNewLineForControlBlocks": false,
-  // 把 vetur 扩展的 template 格式化去掉
-  "vetur.validation.template": false,
-  // <template>区域的默认格式化程序
-  //  - none：禁用格式化
-  //  - prettyhtml：prettyhtml
-  //  - js-beautify-html：js-beautify的html格式化程序
-  //  - prettier：更漂亮
-  "vetur.format.defaultFormatter.html": "js-beautify-html",
-  // <script>区域的默认格式化程序
-  //  - none：禁用格式化
-  //  - prettier：漂亮的js格式化程序
-  //  - prettier-eslint：漂亮的夹板
-  //  - vscode-typescript：来自TypeScript的js格式化程序
-  "vetur.format.defaultFormatter.js": "vscode-typescript",
-  // 所有默认格式化程序的选项
-  "vetur.format.defaultFormatterOptions": {
-    // vue组件中html代码格式化样式
-    "js-beautify-html": {
-      "wrap_attributes": "force-expand-multiline",
-      // "wrap_line_length": 120,
-      // "wrap_attributes": "auto",
-      // "end_with_newline": false
-    },
-    "prettier": {
-      "singleQuote": true,
-      "semi": false
-    }
-  },
-  // 控制资源管理器是否在把文件删除到回收站时进行确认。
-  "explorer.confirmDelete": true,
-  // 格式化stylus, 需安装Manta's Stylus Supremacy插件
-  "stylusSupremacy.insertColons": false, // 是否插入冒号
-  "stylusSupremacy.insertSemicolons": false, // 是否插入分好
-  "stylusSupremacy.insertBraces": false, // 是否插入大括号
-  "stylusSupremacy.insertNewLineAroundImports": false, // import之后是否换行
-  "stylusSupremacy.insertNewLineAroundBlocks": false, // 两个选择器中是否换行
-  // 配置语言的文件关联 (如: `"*.extension": "html"`)。这些关联的优先级高于已安装语言的默认关联。
-  "files.associations": {
-    "*.vue": "vue",
-    "*.css": "css",
-    "*.js": "javascript"
-  },
-  // 控制已更新文件的自动保存。可在[此处](https://code.visualstudio.com/docs/editor/codebasics#_save-auto-save)阅读有关自动保存的详细信息。
-  //  - off: 永不自动保存更新后的文件。
-  //  - afterDelay: 当文件修改后的时间超过 `files.autoSaveDelay` 中配置的值时自动进行保存。
-  //  - onFocusChange: 窗口失去焦点时自动保存更新后的文件。
-  //  - onWindowChange: 编辑器失去焦点时自动保存更新后的文件。
-  "files.autoSave": "onWindowChange",
-  // 控制自动保存已更新文件的延迟时间 (毫秒)。仅在 `files.autoSave` 设置为 `afterDelay` 时生效。
-  "files.autoSaveDelay": 2000,
-  // 启用后，按下 TAB 键，将展开 Emmet 缩写。
-  "emmet.triggerExpansionOnTab": true,
-  // 在默认不支持 Emmet 的语言中启用 Emmet 缩写功能。在此添加该语言与受支持的语言间的映射。
-  // 示例: `{"vue-html": "html", "javascript": "javascriptreact"}`
-  "emmet.includeLanguages": {
-    "wxml": "html",
-    "vue-html": "html",
-    "vue": "html"
-  },
-  "minapp-vscode.disableAutoConfig": true,
-  // 同步 Git 存储库前请先进行确认。
-  "git.confirmSync": false,
-  // 在没有暂存的更改时提交所有更改。
-  "git.enableSmartCommit": false,
-  // 启用时，提交将自动从当前Git存储库的默认远程获取。
-  "git.autofetch": false,
-  // 禁用信息弹出消息。
-  "liveServer.settings.donotShowInfoMsg": false,
-  //打开文件不覆盖
-  "workbench.editor.enablePreview": false,
-  // 指定在工作台中使用的图标主题，或指定 "null" 以不显示任何文件图标。
-  //  - null: 无文件图标
-  //  - vs-minimal
-  //  - vs-seti
-  //  - material-icon-theme
-  "workbench.iconTheme": "material-icon-theme",
-  // 在没有从上一会话中恢复出信息的情况下，控制启动时显示的编辑器。
-  //  - none: 在启动时不打开编辑器。
-  //  - welcomePage: 打开欢迎页面 (默认)。
-  //  - readme: 打开包含一个自述文件的文件夹时, 打开自述文件, 否则回退到 "欢迎页面"。
-  //  - newUntitledFile: 打开新的无标题文件 (仅在打开空工作区时适用)。
-  //  - welcomePageInEmptyWorkbench: 在打开空工作区时打开欢迎页面。
-  "workbench.startupEditor": "welcomePage",
-  // 指定用在工作台中的颜色主题。
-  "workbench.colorTheme": "Dracula Soft",
-  // 控制边栏的位置。它可显示在工作台的左侧或右侧。
-  "workbench.sideBar.location": "left",
-  // 控制是否在搜索中跟踪符号链接。
-  "search.followSymlinks": true,
-  // 若窗口在处于禅模式时退出，控制其在恢复时是否还原到禅模式。
-  "zenMode.restore": true,
-  // 启用/禁用导航路径。
-  "breadcrumbs.enabled": true,
-  // 终端在 Windows 上使用的 Shell 的路径。[阅读有关配置 Shell 的详细信息](https://code.visualstudio.com/docs/editor/integrated-terminal#_configuration)。
-  "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-  // 控制终端的渲染方式。
-  //  - auto: 让 VS Code 决定要使用的渲染器。
-  //  - canvas: 使用标准 GPU/基于 canvas 的渲染器
-  //  - dom: 使用基于 DOM 的备用渲染器。
-  "terminal.integrated.rendererType": "auto",
-  // 指定应该禁止哪些消息
-  "gitlens.advanced.messages": {
-    "suppressLineUncommittedWarning": true,
-    "suppressCommitHasNoPreviousCommitWarning": false,
-    "suppressCommitNotFoundWarning": false,
-    "suppressFileNotUnderSourceControlWarning": false,
-    "suppressGitDisabledWarning": false,
-    "suppressGitVersionWarning": false,
-    "suppressNoRepositoryWarning": false,
-    "suppressSupportGitLensNotification": false
-  },
-  //控制Visual Studio IntelliCode如果将其设置为（recentlyUsed）值，是否会修改editor.suggestSelection，这将导致IntelliCode建议的完成项不可见。
-  //  - enabled：允许IntelliCode代表您修改editor.suggestSelection设置。
-  //  - disabled：您已明确选择不让此配置受IntelliCode控制。
-  //  - automaticallyOverrodeDefaultValue ：（请勿手动设置）IntelliCode会将其设置为记录配置已被自动修改以覆盖默认值。
-  //  - choseToUpdateConfiguration ：（请勿手动设置）IntelliCode会将其设置为记录您已选择让IntelliCode从显式设置的值更改配置。
-  "vsintellicode.modify.editor.suggestSelection": "choseToUpdateConfiguration",
-  "npm.fetchOnlinePackageInfo": false,
-  // 如果设置为 true, 开启静默模式. 上传和下载的概要信息显示在状态栏而非输出面板
-  "sync.quietSync": false,
-  "sync.gist": "4bfdb6b6904be3850114ea68b9aee147",
-  // 设置为 true 在编辑器打开时自动下载远程配置. [需要重启]
-  "sync.autoDownload": true,
-  // 设置为 true 在编辑器打开时自动上传本地配置. [需要重启]
-  "sync.autoUpload": true,
-  "svgviewer.transparencycolor": "",
-  "gitlens.blame.dateFormat": "",
-  "markdown.preview.fontSize": 16,
-  "markdown.extension.toc.omittedFromToc": {},
-  "projectManager.git.baseFolders": [],
-  // 202005211759
-}
+"bracket-pair-colorizer-2.colors": [
+    "Gold",
+    "Orchid",
+    "LightSkyBlue"
+]
+```
+
+### change-case
+
+快速的修改代码的大小写
+
+###### 指令：
+
+- `extension.changeCase.commands`：列出所有变更案例命令，如果仅选择一个单词，则带有预览
+- `extension.changeCase.camel`：更改大小写'camel'：转换为字符串，并用下一个字母大写表示分隔符
+- `extension.changeCase.constant`：更改大小写“常量”：转换为大写字母，下划线分隔字符串
+- `extension.changeCase.dot`：更改大小写的“点”：转换为小写的，句点分隔的字符串
+- `extension.changeCase.kebab`：更改大小写“ kebab”：转换为小写字母，用破折号分隔的字符串（参数名的别名）
+- `extension.changeCase.lower`：更改大小写为“小写”：转换为小写的字符串
+- `extension.changeCase.lowerFirst`：更改大小写“ lowerFirst”：转换为首字母小写的字符串
+- `extension.changeCase.no`：转换不带任何大小写的字符串（小写字母，空格分隔）
+- `extension.changeCase.param`：更改大小写为'param'：转换为小写字母，用破折号分隔的字符串
+- `extension.changeCase.pascal`：更改大小写“
+- `extension.changeCase.path`：更改大小写的“路径”：转换为小写，用斜杠分隔的字符串
+- `extension.changeCase.sentence`：更改大小写的“句子”：转换为小写的空格分隔的字符串
+- `extension.changeCase.snake`：更改大小写“ snake”：转换为小写字母，下划线分隔字符串
+- `extension.changeCase.swap`：更改大小写“交换”：转换为字符串，每个字符的大小写取反
+- `extension.changeCase.title`：更改大小写“标题”：转换为以空格分隔的字符串，每个单词的第一个字符均大写
+- `extension.changeCase.upper`：更改大小写为大写：转换为大写字符串
+- `extension.changeCase.upperFirst`：更改大小写为“ upperFirst”：转换为首字母大写的字符串
+
+### clear-console
+
+使用指令`Clear Console Logs`删除活动编辑器中 console.log 的所有实例。
+
+### Code Spell Checker
+
+一个基本的拼写检查程序，可以很好地处理驼峰大小写代码。这个拼写检查器的目标是帮助捕获常见的拼写错误，同时保持低误报的数量。
+
+### colorize
+
+立即在 css / sass / less / postcss / stylus / XML ...文件中可视化 CSS 颜色。
+
+### filesize
+
+左下角显示文件大小的插件
+
+### fix-ctrl-space
+
+在 windows10 环境中，vscode 的显示代码建议快捷键 ctrl+空格被微软拼音占用，并且无法屏蔽。此插件的作用是将 vscode 的显示代码建议的快捷键 ctrl+空格 改为 ctrl+alt+空格
+
+### GitLens — Git supercharged
+
+能显示每一行代码的作者以及提交时间。
+
+### indent-rainbow
+
+这个扩展着色缩进在你的文本前面交替四种不同的颜色在每一步。有些人可能会发现它在为 Nim 或 Python 编写代码时很有帮助。
+
+### Indenticator
+
+视觉上突出当前缩进的深度。这个扩展可以自己使用，但建议使用它与内置的缩进指南(setting editor.renderIndentGuides)一起使用。
+
+这个扩展会在每个缩进上显示细灰线，而这个扩展会在光标当前所在的缩进深度上突出显示缩进。
+
+### javascript console utils
+
+将 vscode-js-console-utils 改为彩色
+
+### lit-html
+
+在 JavaScript 和 TypeScript 标记的模板字符串中添加语法高亮和语言支持，比如 litt -html 和其他框架中使用的。
+
+### Live Share
+
+- 兼容 Visual Studio IDE 和 Visual Studio Code
+- 支持微软自家的账号登录和 Github 帐号登录
+- 支持项目共享(协作),终端共享(协作),会话共享(协作),日志记录导出
+
+### Markdown All in One
+
+所有你需要 Markdown(键盘快捷键，目录，自动预览和更多)。
+
+### Markdown PDF
+
+这个扩展转换 Markdown 文件到 pdf, html, png 或 jpeg 文件。
+
+### Markdown Preview Enhanced
+
+markdown 预览增强
+
+### px to rem
+
+这是 Visual Studio 代码的扩展，允许您将 px 转换为 rem，反之亦然。
+
+- 将 Alt + Z Px 转换为 rem，然后将 rem 转换为 px。 将选定的文本从 px 转换为 rem，再将 rem 转换为 px。
+- Alt + S 要求每 rem 值有一个新的 px。
+
+### RegExp Preview and Editor
+
+基于静态 regexp 的 VSCode 扩展。包括 regexp 表达式预览器和实时预览编辑器。
+
+#### 使用
+
+选中正则代码右键，然后选择 RegExp Preview
+
+### Quokka.js
+
+Quokka.js 是用于快速 JavaScript / TypeScript 原型开发的开发人员生产力工具。 输入时，运行时值将更新并显示在代码旁边的 IDE 中。
+
+###### 使用
+
+先 ctrl+shift+p（MAC shift+cmd+p ）输入 quokka 选择 new javascript
+
+### Trailing Spaces
+
+突出显示尾随空格并立即删除它们！
