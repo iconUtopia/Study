@@ -41,36 +41,36 @@
 
 ### Document 对象属性
 
-| 属性                         | 描述                                                                                    |
-| :--------------------------- | :-------------------------------------------------------------------------------------- |
-| document.body                | 提供对 `<body>` 元素的直接访问。对于定义了框架集的文档，该属性引用最外层的 <frameset>。 |
-| document.cookie              | 设置或返回与当前文档有关的所有 cookie。                                                 |
-| document.domain              | 返回当前文档的域名。                                                                    |
-| document.lastModified        | 返回文档被最后修改的日期和时间。                                                        |
-| document.referrer            | 返回载入当前文档的文档的 URL。                                                          |
-| document.title               | 返回当前文档的标题。                                                                    |
-| document.URL                 | 返回当前文档的 URL。                                                                    |
-| document.baseURI             | 返回文档的绝对基础 URI                                                                  |
-| document.documentURI         | 设置或返回文档的位置                                                                    |
-| document.activeElement       | 返回当前获取焦点元                                                                      |
-| document.doctype             | 返回与文档相关的文档类型声明 (DTD)                                                      |
-| document.documentElement     | 返回文档的根节点                                                                        |
-| document.documentMode        | 返回用于通过浏览器渲染文档的模式                                                        |
-| document.domain              | 返回当前文档的域名                                                                      |
-| document.embeds              | 返回文档中所有嵌入的内容（embed）集合                                                   |
-| document.forms               | 返回对文档中所有 Form 对象引用。                                                        |
-| document.implementation      | 返回处理该文档的 DOMImplementation 对象。                                               |
-| document.inputEncoding       | 返回用于文档的编码方式（在解析时）                                                      |
-| document.lastModified        | 返回文档被最后修改的日期和时间。                                                        |
-| document.readyState          | 返回文档状态 (载入中……)                                                                 |
-| document.scripts             | 返回页面中所有脚本的集合。                                                              |
-| document.strictErrorChecking | 设置或返回是否强制进行错误检查。                                                        |
-| document.                    |                                                                                         |
-| document.                    |                                                                                         |
-| document.                    |                                                                                         |
-| document.                    |                                                                                         |
-| document.                    |                                                                                         |
-| document.                    |                                                                                         |
+| 属性                         | 描述                                                                         |
+| :--------------------------- | :--------------------------------------------------------------------------- |
+| document.body                | 提供对 `<body>` 元素的直接访问。对于定义了框架集的文档，该属性引用最外层的。 |
+| document.cookie              | 设置或返回与当前文档有关的所有 cookie。                                      |
+| document.domain              | 返回当前文档的域名。                                                         |
+| document.lastModified        | 返回文档被最后修改的日期和时间。                                             |
+| document.referrer            | 返回载入当前文档的文档的 URL。                                               |
+| document.title               | 返回当前文档的标题。                                                         |
+| document.URL                 | 返回当前文档的 URL。                                                         |
+| document.baseURI             | 返回文档的绝对基础 URI                                                       |
+| document.documentURI         | 设置或返回文档的位置                                                         |
+| document.activeElement       | 返回当前获取焦点元                                                           |
+| document.doctype             | 返回与文档相关的文档类型声明 (DTD)                                           |
+| document.documentElement     | 返回文档的根节点                                                             |
+| document.documentMode        | 返回用于通过浏览器渲染文档的模式                                             |
+| document.domain              | 返回当前文档的域名                                                           |
+| document.embeds              | 返回文档中所有嵌入的内容（embed）集合                                        |
+| document.forms               | 返回对文档中所有 Form 对象引用。                                             |
+| document.implementation      | 返回处理该文档的 DOMImplementation 对象。                                    |
+| document.inputEncoding       | 返回用于文档的编码方式（在解析时）                                           |
+| document.lastModified        | 返回文档被最后修改的日期和时间。                                             |
+| document.readyState          | 返回文档状态 (载入中……)                                                      |
+| document.scripts             | 返回页面中所有脚本的集合。                                                   |
+| document.strictErrorChecking | 设置或返回是否强制进行错误检查。                                             |
+| document.                    |                                                                              |
+| document.                    |                                                                              |
+| document.                    |                                                                              |
+| document.                    |                                                                              |
+| document.                    |                                                                              |
+| document.                    |                                                                              |
 
 ### Document 对象方法
 
