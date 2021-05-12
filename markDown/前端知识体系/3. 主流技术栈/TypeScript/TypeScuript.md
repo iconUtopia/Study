@@ -205,16 +205,16 @@ a = <string>un;
 ```ts
 const obj = {
   name: "小明",
-  age: 18,
+  age: 18
 };
 const obj2: { name: string; age: number } = {
   name: "小红",
-  age: 17,
+  age: 17
 };
 
 const obj3: { name: string; age?: number; [propName: string]: any } = {
   name: "小明",
-  stature: 170,
+  stature: 170
 };
 ```
 
@@ -236,7 +236,7 @@ const arr5: info[] = [
   { name: "xiaoXia", age: 18 },
   { name: "xiaoGang", age: 20 },
   { name: "xiaoGang" },
-  { name: "xiaoGang", stature: 174 },
+  { name: "xiaoGang", stature: 174 }
 ];
 ```
 
@@ -245,7 +245,7 @@ const arr5: info[] = [
 元祖类型表示一个已知元素数量和类型的数组，可以为数组中的每个参数定义相对应的类型
 
 ```ts
-const tuple: [number, string, any] = [1, "2", function () {}];
+const tuple: [number, string, any] = [1, "2", function() {}];
 ```
 
 ###### 枚举
@@ -255,7 +255,7 @@ enum Person {
   Boy,
   Girl,
   Man = 4,
-  Woman,
+  Woman
 }
 // Enum 类型对象有默认的值，从 0 开始的枚举
 console.log(Person.Boy);
@@ -309,7 +309,7 @@ function nev(): never {
 function tsFunction1(): void {}
 // 有返回值
 let tsFunction2: (a: number, b: number) => number;
-tsFunction2 = function (n1: number, n2: number) {
+tsFunction2 = function(n1: number, n2: number) {
   return n1 + n2;
 };
 ```
@@ -344,7 +344,7 @@ console.log(tsFunction4({ one: 1, two: 2 }));
 ```ts
 function tsFunction5(a: number, b: number, ...arr: number[]): number {
   let sum: number = a + b;
-  arr.forEach((item) => {
+  arr.forEach(item => {
     sum += item;
   });
   console.log(arr); // [3, 4, 5];
@@ -636,9 +636,9 @@ const logon = (info: Trainer) => {
     age: 1,
     sex: "公",
     character: "傲娇",
-    skillName: (function () {
+    skillName: (function() {
       return `十万伏特`;
-    })(),
+    })()
   };
   console.log("partner:", Pokemon);
 };
@@ -773,7 +773,7 @@ interface ConfigFn {
   <T>(value: T): T;
 }
 
-let getData: ConfigFn = function <T>(value: T): T {
+let getData: ConfigFn = function<T>(value: T): T {
   return value;
 };
 
@@ -830,7 +830,7 @@ class Db<T> {
 }
 
 let u = new User({
-  username: "张三",
+  username: "张三"
 });
 
 //u.username = "李四";
@@ -858,12 +858,12 @@ function getDate(): any[] {
   console.log("获取数据");
   return [
     {
-      userName: "张三",
+      userName: "张三"
     },
 
     {
-      userName: "李四",
-    },
+      userName: "李四"
+    }
   ];
 }
 
@@ -950,10 +950,10 @@ function logClass(params: any) {
   console.log(params);
   //params 就是指代当前类--HttpClient
   params.prototype.apiUrl = "动态扩展属性";
-  params.prototype.run = function () {
+  params.prototype.run = function() {
     console.log("动态扩展方法");
   };
-  params.prototype.getDate = function () {
+  params.prototype.getDate = function() {
     console.log("动态扩展方法2");
   };
 }
@@ -980,7 +980,7 @@ http.getDate();
 
 ```ts
 function logClassB(param: string) {
-  return function (target: any) {
+  return function(target: any) {
     console.log(target, "装饰器以下的类");
     console.log(param, "装饰器传进来的属性");
   };
