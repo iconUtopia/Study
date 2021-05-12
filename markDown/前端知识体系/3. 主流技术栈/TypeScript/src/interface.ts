@@ -4,7 +4,7 @@
  * type Info = string 写法，但interface不可以
  */
 namespace Interface {
-  // 属性接口
+  // 对象接口
   interface Person {
     name: string;
     age: number;
@@ -66,9 +66,9 @@ namespace Interface {
       age: 1,
       sex: "公",
       character: "傲娇",
-      skillName: (function() {
+      skillName: (function () {
         return `十万伏特`;
-      })()
+      })(),
     };
     console.log("partner:", Pokemon);
   };

@@ -1,27 +1,29 @@
 # TypeScript
 
-###### 安装开发环境
+## 安装开发环境
 
 1. 安装 node.js
 2. `npm install typescript -g`或`yarn global add typescript` 全局安装 TypeScript
 
-###### 编译 ts 代码
+### 编译 ts 代码
 
 - node 无法直接运行 ts，所以需要通过运命令 `tsc xxx.ts` 将其转换为 js。然后 `node xxx.js` 运行 js 文件中的代码
-- 过运命令 `tsc xxx.ts -w` 对 ts 文件进行实时监视，并编译为 js
+- 运行命令 `tsc xxx.ts -w` 对 ts 文件进行实时监视，并编译为 js
 - 在项目根目录下输入命令`tsc -init`生成 tsconfig.json 编译配置文件
 - 有了配置文件后就可以在在项目根目录下输入命令 `tsc` 编译所有 ts 文件，也可以通过`tsc -w` 编译且监视所有 ts 文件
 - `tsc`默认生成的是 ES3 的代码，我们编译的时候需要通过`--target ESx 1.js`指定 ts 编译的版本。也可以向在`tsconfig.json`中的`target`项配置
 - 如果想直接运行 ts，可以通过 `npm install -g ts-node` 全局安装 ts-node,转换需要 3-5s
 
-###### webpack 打包 ts
+---
+
+## webpack 打包 ts
 
 1. 运行`npm init -y`生成 package.json 文件
 2. 运行`npm i -D webpack webpack-cli`安装 webpack 和 webpack 命令行工具
 3. 运行`npm i -D typescript ts-loader`安装 TS 环境和 TS 加载器
 4. 在 webpack.config.js 文件配置
 
-###### webpack 打包运行 ts 项目
+### webpack 打包运行 ts 项目
 
 1. `npm i -D html-webpack-plugin`,自动生成 html 文件。然后在 webpack.config.js 中引入 `const HTMLWebpackPlugin = require("html-webpack-plugin")`
 2. webpack.config.js 中配置 `plugin`属性。`npm run build` 打包后生成 html 文件
@@ -102,52 +104,50 @@ module.exports = {
 };
 ```
 
----
-
 1. 配置 tsconfig.json
 2. 在 package.json 中配置 `"build":"webpack"`
 
-## 基本数据类型
+---
 
-- 数字
+## 数据类型
+
+### 基础类型
+
 - 字符串
+- 数字
 - 布尔
-- undefined
 - null
+- undefined
 - any
 - unknown
-- 数组
-- 元组
-- 枚举
-- 对象
-- void
-- never
 
-##### 数字
-
-```ts
-const num: number = 1;
-```
-
-##### 字符串
+###### 字符串
 
 ```ts
 const str: string = "1";
 ```
 
-##### 布尔
+###### 数字
+
+```ts
+const num: number = 1;
+```
+
+###### 布尔
 
 ```ts
 const bl: boolean = true;
 ```
 
-##### null
+###### null
+
+属于组合类型
 
 ```ts
-let a: null;
+let empty: string | null;
 ```
 
-##### undefined
+###### undefined
 
 属于组合类型
 
@@ -155,7 +155,7 @@ let a: null;
 let und: number | undefined;
 ```
 
-##### any
+###### any
 
 让参数可以是任何一种类型
 
@@ -167,7 +167,9 @@ let a: string;
 a = all; // 不报错
 ```
 
-##### unknown
+将 `any` 类型的变量直接赋值给其他类型的变量，**会改变其他变量的类型声明**
+
+###### unknown
 
 ```ts
 let un: unknown = 1;
@@ -177,19 +179,49 @@ let a: string;
 a = un; // 会报错
 ```
 
-`unknown` 类型的变量就是一个安全的`any`
+`unknown` 类型的变量就是一个安全的`any`，不可以直接将`unknown`类型的变量赋值给其他变量。
 
-赋值处理方式
+赋值处理方式：
 
 ```ts
+// 方法一：typeof 判断数据类型
 if (typeof un === "string") a = un;
-a = un as string; // 类型断言，可以用来告诉解析器变量的实际类型
+// 方法二：类型断言，可以用来告诉解析器变量的实际类型
+a = un as string;
 a = <string>un;
 ```
 
-##### 数组
+### 引用类型
 
-5 中数组声明方式
+- 对象
+- 数组
+- 元组
+- 枚举
+- void
+- never
+
+###### 对象
+
+```ts
+const obj = {
+  name: "小明",
+  age: 18,
+};
+const obj2: { name: string; age: number } = {
+  name: "小红",
+  age: 17,
+};
+
+const obj3: { name: string; age?: number; [propName: string]: any } = {
+  name: "小明",
+  stature: 170,
+};
+```
+
+- 属性名后面接个 `?` 表示该属性可选，不传默认是 undefined。
+- `[propName: string]: any` 表示 propName 是 string 类型的属性名，值是 any 类型
+
+###### 数组
 
 ```ts
 const arr1: number[] = [1, 2, 3];
@@ -197,71 +229,33 @@ const arr2 = [1, "2", true, undefined, null];
 const arr3: Array<number> = [1, 2, 3];
 const arr4: (string | number)[] = ["1", 2, "3"];
 
-type info = { name: string; age?: number; [propName: string]: any }; // 类型别名
+// 类型别名
+type info = { name: string; age?: number; [propName: string]: any };
 const arr5: info[] = [
   { name: "xiaoZhi", age: 16 },
   { name: "xiaoXia", age: 18 },
   { name: "xiaoGang", age: 20 },
   { name: "xiaoGang" },
-  { name: "xiaoGang", stature: 174 }
+  { name: "xiaoGang", stature: 174 },
 ];
 ```
 
-- 属性名后面接个 `?` 表示该属性可选
-- `[propName: string]: any` 表示 propName 是 string 类型的属性名，值是 any 类型
+###### 元组
 
-##### 元组
-
-元祖的长度是固定的，可以为数组中的每个参数定义相对应的类型
+元祖类型表示一个已知元素数量和类型的数组，可以为数组中的每个参数定义相对应的类型
 
 ```ts
-const tuple: [number, string, any] = [1, "2", function() {}];
+const tuple: [number, string, any] = [1, "2", function () {}];
 ```
 
-##### 对象
-
-```ts
-const k: object = {};
-const l = {};
-const m: { name: string; age?: number; [propName: string]: any } = {
-  name: "小明",
-  stature: 170
-};
-```
-
-##### void
-
-指定方法类型，表示没有返回值,方法体中不能`return`
-
-```ts
-function aa(): void {
-  console.log(1);
-}
-
-//如果方法有返回值，可以加上返回值的类型
-function bb(): number {
-  return 1;
-}
-```
-
-##### never
-
-其他类型 (包括 null 和 undefined)的子类型，表示的是永不返回结果
-
-```ts
-function nev(): never {
-  throw new Error("never 的正确使用方式");
-}
-```
-
-##### 枚举
+###### 枚举
 
 ```ts
 enum Person {
   Boy,
   Girl,
   Man = 4,
-  Woman
+  Woman,
 }
 // Enum 类型对象有默认的值，从 0 开始的枚举
 console.log(Person.Boy);
@@ -275,46 +269,88 @@ let person = { name: "小智", property: Person.Boy };
 console.log(person.property === Person.Man);
 ```
 
-1. 如果 **未赋值** 的上 **一个值是数字** 那么这个 **未赋值的值** 的是上一个值的值+1
-2. 如果 **未赋值** 的 **上一个值未赋值** 那么输出的就是它的 **下标**
-3. 如果 **未赋值的上一个值的值是非数字**,那么必须赋值
+1. Enum 类型的默认值是**从 0 递增**。
+2. 如果给 Enum 类型的其中一项赋值**number 类型**的值，那么后续的枚举项的值以它为起始递增
+3. 如果给 Enum 类型的其中一项赋值**非 number 类型**的值，那么后续的枚举项都需要进行单独赋值
+
+###### void
+
+指定方法类型，表示没有返回值，方法体中不能`return`
+
+```ts
+function aa(): void {
+  console.log(1);
+}
+
+//如果方法有返回值，可以加上返回值的类型
+function bb(): number {
+  return 1;
+}
+```
+
+###### never
+
+表示永远不存在的值的类型，是任何类型的(包括 null 和 undefined)的子类型，表示的是永不返回结果
+
+```ts
+function nev(): never {
+  throw new Error("never 的正确使用方式");
+}
+```
+
+---
 
 ## 函数
 
-### 函数申明
+### 函数声明
 
 ```ts
-function cc(): void {}
-let fn: (a: number, b: number) => number;
-fn = function(n1: number, n2: number) {
+// 无返回值
+function tsFunction1(): void {}
+// 有返回值
+let tsFunction2: (a: number, b: number) => number;
+tsFunction2 = function (n1: number, n2: number) {
   return n1 + n2;
 };
 ```
 
-### 方法传参
+### 函数传参
 
 ```ts
-function getUserInfo(name: string, age?: number, school: string = "清华大学") {
+function tsFunction3(
+  name: string,
+  age?: number,
+  school: string = "重庆大学"
+): any {
   return `name:${name}--age:${age}--school:${school}`;
 }
+
+// 函数参数为对象
+function tsFunction4({ one, two }: { one: number; two: number }): number {
+  return one + two;
+}
+console.log(tsFunction4({ one: 1, two: 2 }));
 ```
 
-> tips: ?代表这个参数可传可不传,不传就是 undefined,也可定义个默认的值
+- 调用函数时传的参数的数量或类型不符合函数定义参数时的要求，TypeScript 会报错；
+- 在参数后面加个`?`指定该参数为可选参数，可选参数可不传；
+- 当函数有可选参数时，必须检查参数是否被传递；
+- 在声明函数时，可以指定参数的默认值。这种情况的参数也是可选参数；
 
 ### 剩余参数
 
-传递多个时，如果用了剩余参数，就可以把未定义的形参转换为数组。
+传递多个参数时，如果用了剩余参数，就可以把未定义的形参转换为数组。
 
 ```ts
-function sum(a: number, b: number, ...arr: number[]): number {
+function tsFunction5(a: number, b: number, ...arr: number[]): number {
   let sum: number = a + b;
-  arr.forEach(element => {
-    sum += element;
+  arr.forEach((item) => {
+    sum += item;
   });
   console.log(arr); // [3, 4, 5];
   return sum;
 }
-console.log(sum(1, 2, 3, 4, 5)); //15
+console.log(tsFunction5(1, 2, 3, 4, 5)); //15
 ```
 
 ### 函数重载
@@ -330,26 +366,26 @@ console.log(reload(18)); //年龄
 
 **被重载** 的方法，是 **没有方法体**，可以根据参数的类型走其中一个方法并判断参数，但如果 **传入的参数类型不是任何被重载方法的参数类型** 就不允许通过。
 
-> 第 1 个重载(共 2 个)，“(name: string): string”，出现以下错误：类型“never[]”的参数不能赋给类型“string”的参数。
+- 第 1 个重载：`function reload(name: string): string`，出现以下错误：类型“never[]”的参数不能赋给类型“string”的参数。
 
-> 第 2 个重载(共 2 个)，“(age: number): string”，出现以下错误：类型“never[]”的参数不能赋给类型“number”的参数
+- 第 2 个重载：`function reload(age: number): string`，出现以下错误：类型“never[]”的参数不能赋给类型“number”的参数
+
+---
 
 ## 类
 
-类的**成员**：
-
-1. 属性
-2. 方法
+1. 使用 `class` 定义类
+2. 使用 `constructor` 定义构造函数
+3. 通过 `new` 关键字生成实例会自动调用构造函数
 
 ```ts
 class Person {
-  readonly surname: string = "李";
-  public name: string;
-  protected _age: number;
-  private _weight: number;
+  readonly surname: string = "李"; // readonly 只读属性
+  public name: string; // public 公共变量
+  protected _age: number; // protected 保护变量
+  private _weight: number; // private 私有变量
   // 构造函数
   constructor(name: string, age: number, weight: number = 80) {
-    this.readonly = "王";
     this.name = name;
     this._age = age;
     this._weight = weight;
@@ -375,8 +411,8 @@ class Person {
 const man = new Person("尼玛", 42, 74);
 console.log(man);
 console.log(man.introduction());
-// console.log(man._age);
-// console.log(man._weight);
+// console.log(man._age); // 只能在类的内部访问
+// console.log(man._weight); // 只能在类的内部访问
 console.log(man.info);
 console.log("---");
 man.name = "德发";
@@ -386,25 +422,35 @@ console.log(man.getInfo());
 console.log("---");
 ```
 
-###### 访问修饰符
+### 类的成员
 
-1. public 访问修饰符：公共,在当前类里面，子类，类外面都可以访问
-2. protected 保护,在当前类和子类内部可以访问，类外部无法访问
-3. private 私有,在当前类内部可访问，子类，类外部都无法访问。
+1. 属性
+2. 方法
 
-###### 只读修饰符
+### 修饰符
 
-1. readonly 只读属性，只能在声明同时赋予初始值，也可以在构造函数中赋值或修改初始值
-
-###### 静态修饰符
-
-1. static 静态属性，静态成员无需实例化，直接通过类名调用。静态成员通常用于整个类所共有的一些东西
-
-- 修饰符是可选的，在没有写任何修饰符，默认有个 `public`
+- 修饰符是可选的，没有写任何修饰符，默认是 `public`
 - 同类修饰符只能有一个
 - 三种修饰符有先后顺序，分别是：访问、静态、只读
 
-## 继承
+###### 访问修饰符：
+
+1. `public`：修饰的属性和方法是**公共**的，在当前类里面，子类，类外面**都可以访问**;
+2. `protected`：修饰的属性和方法是**受保护**的，在当前类和子类的内部可以访问，**类的外部无法访问**;
+3. `private`：修饰的属性和方法是**私有**的，在当前类内部可访问，**子类和类外的部都无法访问**（在编译后的代码中，并没有限制外部访问）。
+
+###### 静态修饰符：
+
+`static` 静态属性，静态成员无需实例化，直接通过类名调用。静态成员通常用于整个类所共有的一些东西。
+
+###### 只读修饰符：
+
+`readonly` 只读属性，只能在声明同时赋予初始值和在构造函数中赋值或修改初始值
+
+### 继承
+
+1. 使用`extends`关键字实现继承
+2. 子类中使用`super`关键字来调用父类的构造函数和方法
 
 ```TypeScript
  class Son extends Person {
@@ -437,7 +483,14 @@ console.log("---");
   console.log(son.info);
 ```
 
-## 多态
+### 多态
+
+类的多态，又被称为抽象类，是提供其它类继承的基类。
+
+1. 使用`abstract`关键字定义抽象类和在抽象类内部定义抽象方法；
+2. 抽象类无法**实例化**；
+3. 抽象成员包括**属性**和**方法**；
+4. 抽象类中的抽象方法**不包含具体实现**，必须**在派生类中定义**；
 
 ```ts
 abstract class Animal {
@@ -472,140 +525,131 @@ class cat extends Animal {
 console.log(new cat("33").sleep());
 ```
 
-1. 抽象类无法**实例化**。
-2. 非抽象类继承抽象父类时**不会自动实现**来自父类的抽象成员,必须**手动定义**父类中的抽象成员，否则报错。
-3. 抽象成员包括**属性**和**方法**
+---
 
 ## 接口
 
-接口就是用来定义一个类的结构
+接口就是用来**定义一个类的结构**。
 
-在面向对象的编程中，接口是一种规范的定义，它定义了行为和动作的规范，
-
-在程序设计里面，接口起到一种限制和规范的作用。
+在面向对象的编程中，接口是一种**规范的定义**，它定义了行为和动作的规范；在程序设计里面，接口起到一种限制和规范的作用。
 
 接口定义了某一批类所需要遵守的规范，接口不关心这些类的内部状态数据，也不关心这些类里方法的实现细节，它只规定这批类里必须提供某些方法，提供这些方法的类就可以满足实际需要。ts 中的接口类似于 java，同时还增加了更灵活的接口类型，包括属性、函数、可索引和类等。
 
 ###### interface 和 type 的区别:
 
-1. type Info = string 写法，但 interface 不可以
-2. type 不能重复声明，但 interface 可以。两个同名的 interface 会将它们合并为一个
+1. `type Info = string` 写法，但 `interface` 不可以
+2. `type` 不能重复声明，但 `interface` 可以，两个同名的 `interface` 会将它们合并为一个
 
-### 属性接口
-
-```ts
-interface InterfaceName {
-  first: string;
-  second?: string; //加个问号，接口属性就可以变成可传可不传了，不传默认是undefined。
-  [propName: string]: any; // 这样就可在对象里添加任何东西不受约束
-}
-//打印变量
-function logParam(name: InterfaceName): void {
-  console.log(name.first, name.second, 11);
-}
-//定义参数
-const obj = { first: "1", second: "fff", three: 1 };
-//logParam({ first: "1", second: "1", three: 1 }); //报错,只能传接口定义的值。添加[propName: string]: any;就不会报错
-logParam(obj);
-```
-
-用个变量来存储传入的变量,这样可以传入定义的接口以外的值，否则如果直接传入对象中无接口定义的值会报错，所以建议接口定义了哪些值就传哪些值。
-
-### 函数接口
-
-对方法传入的参数类型,以及返回值类型进行约束,可批量进行约束。
+#### 对象接口
 
 ```ts
-interface keyMap {
-  (key: string, value: string): string;
-}
-let logKeyMap: keyMap = function(key1: string, value: string): string {
-  return key1 + value;
-};
-console.log(logKeyMap("key2", "val"));
-```
-
-接口只对传入的参数的类型和参数的个数进行约束，不对参数名称进行约束。
-
-### 可索引接口
-
-#### 约束数组
-
-```ts
-interface Arr {
-  [index: number]: string;
-}
-let ss: Arr = ["2121"];
-```
-
-#### 约束对象
-
-```ts
-interface Obj {
-  [index: string]: string;
-}
-
-let interfaceArr: Obj = { aa: "1" }; // key 写成number类型，也会转为string类型
-```
-
-1. 对数组进行约束,index 后必须跟着 number 类型。
-2. 对对象进行约束,index 后必须跟着 string 类型
-3. 索引签名参数类型必须为 "string" 或 "number"
-
-### 类类型接口
-
-#### 对 类 进行约束,类似 抽象类 的实现。
-
-```ts
-interface Animals {
+interface Person {
   name: string;
-  eat(): void;
+  age: number;
+  stature?: number;
+  weight?: number;
+  [propName: string]: any;
+  约束;
+  say(): string;
 }
+```
 
-class Dogs implements Animals {
+常用的接口模式，key 需要对应上。
+
+#### 函数接口
+
+key 不需要对应上，接口只对传入的参数的数量和类型以及返回值进行约束，不对参数名称进行约束。
+
+```ts
+interface Pokemon {
+  (name: string): void;
+}
+```
+
+#### 可索引接口
+
+```ts
+interface PokemonInfo {
+  [index: string]: any;
+}
+```
+
+1. 对数组进行约束,`index` 后必须跟着 `number` 类型。
+2. 对对象进行约束,`index` 后必须跟着 `string` 类型
+3. 索引签名参数类型必须为 `string` 或 `number`
+
+#### 类类型接口
+
+```ts
+class Person implements Person {
   name: string;
-  constructor(name: string) {
+  age: number;
+  weight?: number;
+  stature?: number;
+  constructor(name: string, age: number, weight?: number) {
     this.name = name;
+    this.age = age;
+    this.weight = weight;
   }
-  eat() {}
+  say() {
+    return `我是要成为宝可梦训练大师的男人`;
+  }
+  selectPartner(partner: string) {
+    console.log(`我要选择${partner}和我一起踏上成为宝可梦大师的旅程`);
+  }
 }
 ```
 
-#### 接口继承--接口可以继承接口
+- 类接口会对类的**属性**和**方法**进行约束，只描述的公共部分，不会检查私有部分；
+- 类似非抽象类继承抽象类时必须实现某些方法和属性，但对属性和方法的类型的约束更加严格；
+- 除了方法 **void 类型**可被**重新定义**外，其他属性或方法的类型定义需要和接口保持一致。
+
+#### 接口继承
 
 ```ts
-interface Dog {
-  eat(): void;
+interface Trainer extends Person {
+  selectPartner: Pokemon;
 }
-
-interface Persons extends Dog {
-  work(): void;
-}
-
-class Cat {
-  code() {
-    console.log("猫在敲代码");
-  }
-}
-
-//可继承类后再实现接口
-class SuperMan extends Cat implements Persons {
-  eat(): void {
-    console.log(1);
-  }
-  work(): void {
-    console.log(2);
-  }
-}
-let superMan = new SuperMan();
-superMan.code();
 ```
 
-类接口会对类的**属性**和**方法**进行约束，类似非抽象类继承抽象类时必须实现某些方法和属性，但对属性和方法的类型的约束更加严格，除了方法 **void 类型**可被**重新定义**外，其他属性或方法的类型定义需要和接口保持一致。
+### 使用举例
+
+```ts
+const man = new Person("小智", 17);
+function screenResume(info: Person) {
+  console.log(info.say());
+  info.age < 14 && console.log(info.name + "你年龄不够，不能成为宝可梦训练师");
+  info.age >= 14 &&
+    console.log(info.name + "恭喜你达到了成为宝可梦训练师的年龄");
+}
+screenResume(man);
+const logon = (info: Trainer) => {
+  console.log("---");
+  console.log("姓名：" + info.name);
+  console.log("年龄：" + info.age);
+  info.stature && console.log("体重：" + info.stature);
+  info.weight && console.log("身高：" + info.weight);
+  info.selectPartner("皮卡丘");
+  console.log("---");
+  let Pokemon: PokemonInfo = {
+    name: "皮卡丘",
+    age: 1,
+    sex: "公",
+    character: "傲娇",
+    skillName: (function () {
+      return `十万伏特`;
+    })(),
+  };
+  console.log("partner:", Pokemon);
+};
+logon(man);
+```
+
+---
 
 ## 联合类型
 
-只要函数的一个参数有两种以上的类型就称为联合类型,联合类型只提示公共的属性。只有在有联合类型的情况下才有类型保护（类型守护）
+只要函数的**一个参数有两种以上的类型**就称为联合类型，联合类型只提示公共的属性。只有在有联合类型的情况下才有**类型保护（类型守护）**
 
 ```ts
 interface JieNiGui {
@@ -729,7 +773,7 @@ interface ConfigFn {
   <T>(value: T): T;
 }
 
-let getData: ConfigFn = function<T>(value: T): T {
+let getData: ConfigFn = function <T>(value: T): T {
   return value;
 };
 
@@ -786,7 +830,7 @@ class Db<T> {
 }
 
 let u = new User({
-  username: "张三"
+  username: "张三",
 });
 
 //u.username = "李四";
@@ -814,12 +858,12 @@ function getDate(): any[] {
   console.log("获取数据");
   return [
     {
-      userName: "张三"
+      userName: "张三",
     },
 
     {
-      userName: "李四"
-    }
+      userName: "李四",
+    },
   ];
 }
 
@@ -906,10 +950,10 @@ function logClass(params: any) {
   console.log(params);
   //params 就是指代当前类--HttpClient
   params.prototype.apiUrl = "动态扩展属性";
-  params.prototype.run = function() {
+  params.prototype.run = function () {
     console.log("动态扩展方法");
   };
-  params.prototype.getDate = function() {
+  params.prototype.getDate = function () {
     console.log("动态扩展方法2");
   };
 }
@@ -936,7 +980,7 @@ http.getDate();
 
 ```ts
 function logClassB(param: string) {
-  return function(target: any) {
+  return function (target: any) {
     console.log(target, "装饰器以下的类");
     console.log(param, "装饰器传进来的属性");
   };

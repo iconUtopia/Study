@@ -15,33 +15,50 @@ namespace Type {
   const total = getTotal(1, 2);
   const count3 = {
     name: "name",
-    age: 18
+    age: 18,
   };
   /**
    * ts 能自动推断的时候就让其自行推断，不能推断的时候再注解
    */
 
-  // 基础静态类型
-  let num: number = 123;
+  // 基础类型
   let str: string = "456";
+  let num: number = 123;
   let bl: boolean = true;
-  let empty: null = null;
+  let empty: string | null = null; // 属于组合类型
   let und: number | undefined = 789; // 属于组合类型
   let test: string;
   let all: any = 1;
   all = "2";
   all = true;
-  all = function() {};
+  all = function () {};
   all = "1";
   test = all; // 不报错
   let un: unknown = 1;
   un = "1";
   // test = un; //会报错
+  // 赋值处理方式：
+  // 方法一：typeof 判断数据类型
   if (typeof un === "string") test = un;
+  // 方法二：类型断言，可以用来告诉解析器变量的实际类型
   test = un as string;
   test = <string>un;
 
-  // 对象静态类型
+  // 引用类型
+  const obj = {
+    name: "小明",
+    age: 18,
+  };
+  const obj2: { name: string; age: number } = {
+    name: "小红",
+    age: 17,
+  };
+  // 属性名后面接个 ? 表示该属性可选
+  // [propName: string]: any 表示 propName是 string 类型的属性名，值是 any 类型
+  const obj3: { name: string; age?: number; [propName: string]: any } = {
+    name: "小明",
+    stature: 170,
+  };
   const arr: number[] = [1, 2, 3];
   const arr2: Array<string> = ["1", "2", "3"];
   const arr3: (string | number)[] = ["1", 2, "3"];
@@ -51,22 +68,10 @@ namespace Type {
     { name: "xiaoZhi", age: 16 },
     { name: "xiaoXia", age: 18 },
     { name: "xiaoGang", age: 20 },
-    { name: "xiaoGang" }, // 属性名后面接个 ? 表示该属性可选
-    { name: "xiaoGang", stature: 174 } // [propName: string]: any 表示 propName是 string 类型的属性名，值是 any 类型
+    { name: "xiaoGang" },
+    { name: "xiaoGang", stature: 174 },
   ];
-  const tuple: [number, string, any] = [1, "2", function() {}]; // 元祖的长度是固定的，可以为数组中的每个参数定义相对应的类型
-  const obj = {
-    name: "小明",
-    age: 18
-  };
-  const obj2: { name: string; age: number } = {
-    name: "小红",
-    age: 17
-  };
-  const onj3: { name: string; age?: number; [propName: string]: any } = {
-    name: "小明",
-    stature: 170
-  };
+  const tuple: [number, string, any] = [1, "2", function () {}]; // 元祖的长度是固定的，可以为数组中的每个参数定义相对应的类型
 
   function tsFunction1(): number {
     console.log("10086");
@@ -83,7 +88,7 @@ namespace Type {
     Boy,
     Girl,
     Man = 4,
-    Woman
+    Woman,
   }
   // Enum 类型对象有默认的值，从 0 开始的枚举
   console.log(Person.Boy);
