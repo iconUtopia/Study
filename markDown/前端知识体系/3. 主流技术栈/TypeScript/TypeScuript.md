@@ -111,6 +111,20 @@ module.exports = {
 
 ## 数据类型
 
+### 类型推断与类型注解
+
+###### 类型推断
+
+```ts
+let count = 1;
+```
+
+###### 类型注解
+
+```ts
+let count: number = 1;
+```
+
 ### 基础类型
 
 - 字符串
@@ -205,16 +219,16 @@ a = <string>un;
 ```ts
 const obj = {
   name: "小明",
-  age: 18
+  age: 18,
 };
 const obj2: { name: string; age: number } = {
   name: "小红",
-  age: 17
+  age: 17,
 };
 
 const obj3: { name: string; age?: number; [propName: string]: any } = {
   name: "小明",
-  stature: 170
+  stature: 170,
 };
 ```
 
@@ -236,7 +250,7 @@ const arr5: info[] = [
   { name: "xiaoXia", age: 18 },
   { name: "xiaoGang", age: 20 },
   { name: "xiaoGang" },
-  { name: "xiaoGang", stature: 174 }
+  { name: "xiaoGang", stature: 174 },
 ];
 ```
 
@@ -245,7 +259,7 @@ const arr5: info[] = [
 元祖类型表示一个已知元素数量和类型的数组，可以为数组中的每个参数定义相对应的类型
 
 ```ts
-const tuple: [number, string, any] = [1, "2", function() {}];
+const tuple: [number, string, any] = [1, "2", function () {}];
 ```
 
 ###### 枚举
@@ -255,7 +269,7 @@ enum Person {
   Boy,
   Girl,
   Man = 4,
-  Woman
+  Woman,
 }
 // Enum 类型对象有默认的值，从 0 开始的枚举
 console.log(Person.Boy);
@@ -309,7 +323,7 @@ function nev(): never {
 function tsFunction1(): void {}
 // 有返回值
 let tsFunction2: (a: number, b: number) => number;
-tsFunction2 = function(n1: number, n2: number) {
+tsFunction2 = function (n1: number, n2: number) {
   return n1 + n2;
 };
 ```
@@ -344,7 +358,7 @@ console.log(tsFunction4({ one: 1, two: 2 }));
 ```ts
 function tsFunction5(a: number, b: number, ...arr: number[]): number {
   let sum: number = a + b;
-  arr.forEach(item => {
+  arr.forEach((item) => {
     sum += item;
   });
   console.log(arr); // [3, 4, 5];
@@ -549,7 +563,6 @@ interface Person {
   stature?: number;
   weight?: number;
   [propName: string]: any;
-  约束;
   say(): string;
 }
 ```
@@ -636,9 +649,9 @@ const logon = (info: Trainer) => {
     age: 1,
     sex: "公",
     character: "傲娇",
-    skillName: (function() {
+    skillName: (function () {
       return `十万伏特`;
-    })()
+    })(),
   };
   console.log("partner:", Pokemon);
 };
@@ -649,42 +662,64 @@ logon(man);
 
 ## 联合类型
 
-只要函数的**一个参数有两种以上的类型**就称为联合类型，联合类型只提示公共的属性。只有在有联合类型的情况下才有**类型保护（类型守护）**
+- 只要函数的**一个参数有两种及以上的类型**就称为联合类型；
+- 联合类型只提示公共的属性；
+- 只有在有联合类型的情况下才有**类型保护（类型守护）**
 
 ```ts
-interface JieNiGui {
+interface Squirtle {
   tortoise: boolean;
   swim: () => {};
 }
-interface SuanTouWangBa {
+interface Bulbasaur {
   tortoise: boolean;
   yygq: () => {};
 }
+let Pokemon1: Squirtle = {
+  tortoise: true,
+  swim: () => {
+    console.log("杰尼龟使用冲浪");
+    return true;
+  },
+};
+let Pokemon2: Bulbasaur = {
+  tortoise: false,
+  yygq: () => {
+    console.log("不会吧不会吧，不会真的有王八吧");
+    return true;
+  },
+};
 ```
 
-###### 第一种类型保护方案：类型断言方式
+### 第一种类型保护方案：类型断言方式
+
+根据不同对象内的**同一属性的不同值**进行判断，然后告诉 TS 该属于哪个接口
 
 ```ts
-function trainPokemon(pokemon: JieNiGui | SuanTouWangBa) {
-  // 这里直接调用 pokemon.swim() 是会报错的，因为 SuanTouWangBa 不存在 swim()
+function trainPokemon(pokemon: Squirtle | Bulbasaur) {
   if (pokemon.tortoise) {
-    (pokemon as JieNiGui).swim(); // 强制告诉 TS，pokemon 是 JieNiGui 类型
-  } else (pokemon as SuanTouWangBa).yygq();
+    (pokemon as Squirtle).swim();
+  } else (pokemon as Bulbasaur).yygq();
 }
+trainPokemon(Pokemon1);
+trainPokemon(Pokemon2);
 ```
 
-###### 第二种类型保护方案： in 语法来做类型保护
+### 第二种类型保护方案： in 语法来做类型保护
+
+根据对象里是否有该属性来判断调用对应的方法。
 
 ```ts
-function trainPokemon2(pokemon: JieNiGui | SuanTouWangBa) {
-  // 告诉 ts pokemon 里面有 swim
+function trainPokemon2(pokemon: Squirtle | Bulbasaur) {
   if ("swim" in pokemon) {
     pokemon.swim();
   } else pokemon.yygq();
 }
+trainPokemon2(Pokemon1);
+trainPokemon2(Pokemon2);
 ```
 
-###### 第三种类型保护方案： typeof 语法来做类型保护
+### 第三种类型保护方案： typeof 语法来做类型保护
 
 ```ts
 function add(first: string | number, second: string | number) {
@@ -693,17 +728,20 @@ function add(first: string | number, second: string | number) {
     return `${first}${second}`;
   }
   return first + second;
+  console.log(add(1, 2));
+  console.log(add("1", 2));
 ```
 
-###### 第四种类型保护方案： instanceof 语法来做类型保护
+### 第四种类型保护方案： instanceof 语法来做类型保护
+
+只有 class 才能用 instanceof 做类型保护
 
 ```ts
 class NumberObj {
-  // 因为只有 class 才能用 instanceof 做类型保护
   count: number = 1;
 }
 function addSecond(first: object | NumberObj, second: object | NumberObj) {
-  // 这里直接 first.count + second.count 也会报错，因为有可能他们是 object，没有 count 属性，这个时候也可以用类型保护
+  // 这里直接 first.count + second.count 也会报错，可能他们没有 count 属性，这个时候也可以用类型保护
   if (first instanceof NumberObj && second instanceof NumberObj) {
     return first.count + second.count;
   }
@@ -711,24 +749,17 @@ function addSecond(first: object | NumberObj, second: object | NumberObj) {
 }
 ```
 
+---
+
 ## 泛型
 
-泛型就是解决**类**、**接口**、**方法**的**复用性**，以及对**不特定数据类型**的支持。
+泛型可以理解为宽泛的类型，是解决**类**、**接口**、**方法**的**复用性**，以及对**不特定数据类型**的支持。
 
 要求:传入的参数和返回的参数一致
 
-### 函数的泛型
-
-```ts
-function getDate<T>(value: T): T {
-  return value;
-}
-console.log(getDate<number>(123));
-```
-
-T 可改成其他任意值但定义的值，和传入的参数以及返回的参数是一样的,一般默认写法是 T，也是业内规范的选择。
-
 ### 类的泛型
+
+> T 可改成其他任意值，但定义的值和传入的参数以及返回的参数是一样的，一般默认写法是 T，也是业内规范的选择。
 
 ```ts
 class MinClass<T> {
@@ -749,23 +780,33 @@ class MinClass<T> {
     return minNum;
   }
 }
-//实例化类 并且指定了类的T的类型是number
-let minClass = new MinClass<number>();
+//实例化类 并且指定了类的 T 的类型是 number，则其方法的传参和返回都是指定的 T 类型
+let minClass = new MinClass<number>(),
+  minClass2 = new MinClass<string>();
 minClass.add(23);
-minClass.add(5);
-minClass.add(2);
-console.log(minClass.min());
-//实例化类 并且指定了类的T的类型是string，则其方法的传参和返回都是string类型
-let minClass2 = new MinClass<string>();
 minClass2.add("23");
+minClass.add(5);
 minClass2.add("5");
+minClass.add(2);
 minClass2.add("2");
+console.log(minClass.min());
 console.log(minClass2.min());
 ```
 
-### 接口泛型
+### 函数的泛型
 
-第一种写法：
+```ts
+function getDate<T>(value: T): T {
+  return value;
+}
+console.log(getDate<number>(123));
+```
+
+#### 接口泛型
+
+接口的泛型只针对**函数类型**的接口
+
+###### 第一种写法：
 
 ```ts
 interface ConfigFn {
@@ -773,14 +814,14 @@ interface ConfigFn {
   <T>(value: T): T;
 }
 
-let getData: ConfigFn = function<T>(value: T): T {
+let getData: ConfigFn = function <T>(value: T): T {
   return value;
 };
 
 console.log(getData<string>("z11"));
 ```
 
-第二种写法：
+###### 第二种写法：
 
 ```ts
 interface ConfigFn<T> {
@@ -798,9 +839,7 @@ let myGetDate: ConfigFn<string> = getData;
 console.log(myGetDate("3"));
 ```
 
-接口的泛型只针对**函数类型**的接口
-
-### 类当做参数传入泛类型
+### 把类当做参数传入泛类型
 
 ```ts
 //用户类--和数据库表字段进行映射
@@ -830,7 +869,7 @@ class Db<T> {
 }
 
 let u = new User({
-  username: "张三"
+  username: "张三",
 });
 
 //u.username = "李四";
@@ -844,11 +883,7 @@ db.updated(u, 1);
 
 ## 模块
 
-内部模块称为命名空间，外部模块简称为模块，模块在其自身的作用域里执行，而不是在全局作用域里;
-
-这意味着定义在一个模块里的变量、函数、类等等在模块外部是不可见的，除非你明确的使用 `export` 形式之一导出它们。
-
-相反，如果想使用其它模块导出的变量，函数，类，接口等的时候，你必须要导入它们，可以使用 `import` 形式之一。
+内部模块称为**命名空间**，外部模块简称为**模块**，模块在其自身的作用域里执行，而**不在全局作用域里执行**;
 
 模块里面的变量、函数、类等默认是私有的，如果我们要在外部访问模块里面的数据(变量、函数、类)，我们需要通过 `export` 暴露模块里面的数据(变量、函数、类...)，暴露后我们通过 `import` 引入模块就可以使用模块里面暴露的数据(变量、函数、类...)。
 
@@ -858,12 +893,12 @@ function getDate(): any[] {
   console.log("获取数据");
   return [
     {
-      userName: "张三"
+      userName: "张三",
     },
 
     {
-      userName: "李四"
-    }
+      userName: "李四",
+    },
   ];
 }
 
@@ -881,7 +916,7 @@ getDbDate();
 
 这个调试时浏览器中不能直接使用,可在 node 和 weakpack 的环境中调试。
 
-## 命名空间
+### 命名空间
 
 在代码量较大的情况下，为了避免各种变量命名相冲突，可将相似功能的函数、类、接口等放置到命名空间内
 
@@ -933,11 +968,13 @@ let ee = new A.Dog("小贝");
 ee.eat();
 ```
 
+---
+
 ## 装饰器
 
 装饰器是一种**特殊类型**的声明，它能够被附加到类声明，方法，属性上，可以为原本额代码添加额外的功能。
 
-通俗的讲装饰器就是一个函数，可以注入到类、方法、属性参数上来扩展类、方法、属性的功能
+通俗的讲**装饰器就是一个函数**，可以注入到类、方法、属性参数上来扩展类、方法、属性的功能
 
 装饰器的写法：普通装饰器（无传参）、装饰器工厂（可传参）
 
@@ -947,13 +984,12 @@ ee.eat();
 
 ```ts
 function logClass(params: any) {
-  console.log(params);
   //params 就是指代当前类--HttpClient
   params.prototype.apiUrl = "动态扩展属性";
-  params.prototype.run = function() {
+  params.prototype.run = function () {
     console.log("动态扩展方法");
   };
-  params.prototype.getDate = function() {
+  params.prototype.getDate = function () {
     console.log("动态扩展方法2");
   };
 }
@@ -972,7 +1008,7 @@ http.run();
 http.getDate();
 ```
 
-装饰器会覆盖被装饰的类中的方法。
+**装饰器会覆盖被装饰的类中的方法。**
 
 ### 装饰工厂
 
@@ -980,7 +1016,7 @@ http.getDate();
 
 ```ts
 function logClassB(param: string) {
-  return function(target: any) {
+  return function (target: any) {
     console.log(target, "装饰器以下的类");
     console.log(param, "装饰器传进来的属性");
   };

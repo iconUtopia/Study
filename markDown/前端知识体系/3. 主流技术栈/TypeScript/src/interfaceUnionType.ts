@@ -5,40 +5,40 @@
  * 只有在有联合类型的情况下才有类型保护（类型守护）
  */
 namespace InterfaceUnionType {
-  interface JieNiGui {
+  interface Squirtle {
     tortoise: boolean;
     swim: () => {};
   }
-  interface SuanTouWangBa {
+  interface Bulbasaur {
     tortoise: boolean;
     yygq: () => {};
   }
-  let Pokemon1: JieNiGui = {
+  let Pokemon1: Squirtle = {
     tortoise: true,
     swim: () => {
       console.log("杰尼龟使用冲浪");
       return true;
-    }
+    },
   };
-  let Pokemon2: SuanTouWangBa = {
+  let Pokemon2: Bulbasaur = {
     tortoise: false,
     yygq: () => {
-      console.log("不会吧不会吧，不会还有人写代码掉头发吧");
+      console.log("不会吧不会吧，不会真的有王八吧");
       return true;
-    }
+    },
   };
   // 第一种类型保护方案：类型断言方式
-  function trainPokemon(pokemon: JieNiGui | SuanTouWangBa) {
-    // 这里直接调用 pokemon.swim() 是会报错的，因为 SuanTouWangBa 不存在 swim()
+  function trainPokemon(pokemon: Squirtle | Bulbasaur) {
+    // 这里直接调用 pokemon.swim() 是会报错的，因为 Bulbasaur 不存在 swim()
     if (pokemon.tortoise) {
-      (pokemon as JieNiGui).swim(); // 强制告诉 TS，pokemon 是 JieNiGui 类型
-    } else (pokemon as SuanTouWangBa).yygq();
+      (pokemon as Squirtle).swim(); // 强制告诉 TS，pokemon 是 Squirtle 类型
+    } else (pokemon as Bulbasaur).yygq();
   }
   console.log("类型断言方式:");
   trainPokemon(Pokemon1);
   trainPokemon(Pokemon2);
   // 第二种类型保护方案： in 语法来做类型保护
-  function trainPokemon2(pokemon: JieNiGui | SuanTouWangBa) {
+  function trainPokemon2(pokemon: Squirtle | Bulbasaur) {
     // 告诉 ts pokemon 里面有 swim
     if ("swim" in pokemon) {
       pokemon.swim();
