@@ -1,26 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
-  <script>
-    function add() {
-      // 第一次执行时，顶一个数组用来存储所有参数
-      let args = Array.prototype.slice.call(arguments);
-      // 在内部声明一个函数，利用闭包的特性保存 args 并收集所有的参数
-      let adder = function() {
-        args.push(...arguments);
-        return adder;
-      };
-      // 利用 toString 隐式转换的特性，当最后执行时隐式转换，并计算最终的返回值
-      adder.toString = () =>
-        args.reduce((previous, current) => previous + current);
-      return adder;
-    }
-    add(1)(2)(4)(7);
-  </script>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<style>
+  .title {
+    text-align: center;
+  }
+
+  .box {
+    background-color: green;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+</style>
+
+<body>
+  <h1 class="title" id="title">测试</h1>
+  <div class="box"></div>
+  <input placeholder="数据改变视图" id="inputValue" />
+  显示值:
+  <p id="inputData"></p>
+  <div
+    style="width: 500px;height: 200px;margin:0 auto;border:1px solid #000;display: flex;align-items: center;justify-content: center;">
+    <div style="width: 100px;height: 100px;border:1px solid #000;"></div>
+    <div style="width: 100px;height: 100px;border:1px solid #000;margin-left: 10px;"></div>
+  </div>
+</body>
+<script>
+  /* --- Promise 链式调用 --- */
+  // let flag = true
+  // const promise = new Promise((resolve, reject) => {
+  //   if (flag) {
+  //     let result = {
+  //       code: 200,
+  //       data: 'Resolve',
+  //       message: 'success'
+  //     }
+  //     resolve(result)
+  //   } else {
+  //     reject(new Error('error'))
+  //   }
+  // })
+
+  // let Buy = function (parma) {
+  //   let data = {
+  //     code: 200,
+  //     data: { arr: [1, 2, 3] },
+  //     message: 'success'
+  //   }
+  //   let obj = {
+  //     code: 200,
+  //     message: 'success',
+  //     data,
+  //     parma,
+  //   }
+  //   return Promise.resolve(obj)
+  // }
+
+  // let test2 = function () {
+  //   promise.then(Buy).then(fulfilled => console.log(fulfilled)).catch(rejected => console.log(rejected))
+  // }
+  // test2()
+
+
+</script>
+
 </html>
