@@ -72,7 +72,7 @@ Object.defineProperty(obj, "name", {
     if (val === newObj.name) return;
     newObj.name = val;
     observe();
-  },
+  }
 });
 
 /* --- Proxy --- */
@@ -83,7 +83,7 @@ obj = new Proxy(obj, {
   set(target, prop, val) {
     target[prop] = val;
     observe();
-  },
+  }
 });
 
 function observe() {
@@ -98,7 +98,7 @@ setTimeout(() => {
 }, 1000);
 
 // 视图的改变影响数据
-inpName.oninput = function () {
+inpName.oninput = function() {
   obj.name = this.value;
 };
 ```
@@ -183,15 +183,20 @@ beforeCreate,created,beforeMount,mounted。
 
 ---
 
-## 组件传值
+## 组件通信
 
-1. **属性传递**：父组件通过属性传递值 `<V-header :title="msg2"></V-header>`，子组件通过 props 属性接收数据
-2. **发布订阅**(EventBus)：`$on`/`$emit`：子传父
-3. ref/$refs
-4. **`$parent`/`$children`**：实现父子组件之间的互相调用
-5. **`Provide`/`inject`**：**依赖注入**，祖先和后代上下文的方式，祖传后，后传祖
-6. **`slot`**：插槽
-7. 本地存储方案：**vuex**(虚拟内存，刷新没)、localStorage(浏览器本地存储，持久化，需要做过期日期)
+- 父传子：
+  1. props
+  2. \$refs
+  3. `$children`
+  4. `slot` 插槽
+- 子传父：
+  1. `$parent`
+- 兄弟组件：
+  1. EventBus，`$on`、`$emit`
+- 共同祖先组件：
+  1. `Provide`、`inject`
+  2. vuex
 
 ### 父组件主动获取子组件的数据和方法
 
@@ -359,80 +364,17 @@ Vue.directive('dir2', {
 
 ---
 
-## vuex
+## vuex 是什么
 
-### vuex 是什么
-
-Vuex 是一个专门为 Vue 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件状态，并以相应的规则保证状态以一种可预测的方式发生变化。应用级的状态放在 store 中；改变状态的方式提交 mutations，这是个同步事物；异步逻辑封装在 action 中。
-
-简单来说：vuex 就是一个仓库，仓库里放了很多对象。其中 state 即使数据源存放地，对应一般 vue 对象里面的 data。
-
-### vuex 怎么用
-
-在 main.js 中引入 store，注入。vue 组件从 store 读取数据，state 里面存放的数据是响应式的，如果是 store 中数据发生改变，依赖这项数据的组件也会发生改变
-
-### vuex 应用场景
-
-一般用于中大型 web 单页应用中对应用的状态进行管理，更多地用于解决跨组件通信以及作为数据中心集中式存储数据。
-
-#### 使用 vuex 解决同级组件之间通信问题
-
-vuex 是通过将 state 作为数据中心、各个组件共享 state 实现跨组件通信的，此时的数据完全独立于组件，因此将组件间共享的数据置于 State 中能有效解决多层级组件嵌套的跨组件通信问题。
-
-#### vuex 作为数据存储中心
-
-vuex 的 State 在单页应用的开发中本身具有一个“数据库”的作用，可以将组件中用到的数据存储在 State 中，并在 Action 中封装数据读写的逻辑。
-
-这时候存在一个问题，一般什么样的数据会放在 State 中呢？ 目前主要有两种数据会使用 vuex 进行管理：
-
-1. 组件之间全局共享的数据
-2. 通过后端异步请求的数据
+Vuex 是一个专门为 Vue 应用程序开发的**状态管理机**。一般用于中大型 web 单页应用中对应用的状态进行管理，使用单一状态树，它采用**集中式存储数据管理**解决跨组件通信，并以相应的规则保证状态以一种可预测的方式发生变化。
 
 ### Vuex 有哪些基本属性?
 
-1. state：基本数据(**数据源**存放地)
-2. mutations：提交**更改数据**的方法，**同步**
+1. state：**基本数据(数据源存放地)**。Vuex 使用单一状态树，即每个应用将仅仅包含一个 store 实例，但单一状态树和模块化并不冲突。存放的数据状态，不可以直接修改里面的数据。
+2. mutations：**同步提交更改 store 的方法**。
 3. getters：从基本数据派生出来的数据，类似 vue 的计算属性，主要用来过滤一些数据。
-4. action：像一个**装饰器**，包裹 mutations，使之可以**异步**。
-5. modules：模块化 Vuex
-
-#### state
-
-Vuex 使用单一状态树，即每个应用将仅仅包含一个 store 实例，但单一状态树和模块化并不冲突。存放的数据状态，不可以直接修改里面的数据。
-
-#### mutations
-
-mutations 定义的方法动态修改 Vuex 的 store 中的状态或数据。
-
-#### getters
-
-类似 vue 的计算属性，主要用来过滤一些数据。
-
-#### action
-
-actions 可以理解为通过将 mutations 里面处理数据的方法变成异步的处理数据的方法，简单的说就是异步操作数据。view 层通过 store.dispath 来分发 action。
-
-```JavaScript
-const store = new Vuex.Store({ //store实例
-      state: {
-         count: 0
-             },
-      mutations: {
-         increment (state) {
-          state.count++
-         }
-          },
-      actions: {
-         increment (context) {
-          context.commit('increment')
-   }
- }
-})
-```
-
-#### modules ˝
-
-项目特别复杂的时候，可以让每一个模块拥有自己的 state、mutation、action、getters，使得解构非常清晰，方便管理。
+4. action：像一个**装饰器**，将 mutations 里面处理数据的方法变成异步的。view 层通过 store.dispatch 来分发 action。
+5. modules：模块化 Vuex。项目特别复杂的时候，可以让每一个模块拥有自己的 state、mutation、action、getters，使得解构非常清晰，方便管理。
 
 ```JavaScript
 const moduleA = {
@@ -446,17 +388,33 @@ const moduleB = {
   mutations: { ... },
   actions: { ... }
  }
-
 const store = new Vuex.Store({
+  //store实例
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment(state) {
+      state.count++;
+    }
+  },
+  actions: {
+    increment(context) {
+      context.commit("increment");
+    }
+  },
   modules: {
     a: moduleA,
     b: moduleB
-})
+  }
+});
 ```
 
-### Vue 不用 vuex 可不可以？
+### vuex 怎么用
 
-可以，不用的话就直接在组件里传值，用 props。
+在 main.js 中引入 store 注入。
+
+Vuex 是通过将 state 作为数据中心，并在 Action 中封装数据读写的逻辑。各个组件共享 state 读取数据，并实现跨组件通信的。
 
 ---
 
@@ -503,33 +461,27 @@ Vue.filter('capitalize', function (value) {
 
 ### 对 keep-alive 的了解？
 
-keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状态，或避免重新渲染。
-在 vue 2.1.0 版本之后，keep-alive 新加入了两个属性：include（包含的组件缓存）与 exclude（排除的组件不缓存，优先级大于 include）。
-使用方法：
+keep-alive 是 Vue 内置的一个组件，可以缓存包含的组件，避免重新渲染。
+在 vue 2.1.0 版本之后，keep-alive 新加入了两个属性：
+
+- `include`：字符串或正则表达式，只有名称匹配的组件会被缓存；
+- `exclude`：字符串或正则表达式，任何名称匹配的组件都不会被缓存，优先级大于 include。
 
 ```html
 <keep-alive include="include_components" exclude="exclude_components">
-  <component>
+  <Component>
     <!-- 该组件是否缓存取决于include和exclude属性 -->
-  </component>
+  </Component>
 </keep-alive>
-```
 
-参数解释：
-
-- include - 字符串或正则表达式，只有名称匹配的组件会被缓存。
-- exclude - 字符串或正则表达式，任何名称匹配的组件都不会被缓存。
-  使用示例：
-
-```html
 <!-- 逗号分隔字符串，只有组件a与b被缓存。 -->
 <keep-alive include="a,b">
-  <component></component>
+  <Component></Component>
 </keep-alive>
 
 <!-- 正则表达式 (需要使用 v-bind，符合匹配规则的都会被缓存) -->
 <keep-alive :include="/a|b/">
-  <component></component>
+  <Component></Component>
 </keep-alive>
 
 <!-- Array (需要使用 v-bind，被包含的都会被缓存) -->
@@ -540,9 +492,12 @@ keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状�
 
 ## 一句话就能回答的面试题
 
-### css 只能在当前组件起作用
+### scoped 的起作用
 
-在 style 标签中写入 scoped 即可，例如：`<style scoped></style>`。
+vue 模板里的 style 标签添加 scoped 属性 `<style scoped></style>`：
+
+1. 作用：让样式在本组件内生效，不影响其他组件
+2. 原理：给节点新增自定义属性，然后 CSS 根据属性选择器添加样式。
 
 ### v-if 和 v-show 的区别
 
@@ -557,10 +512,18 @@ keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状�
   - 基于 css 切换，不会触发生命周期
   - 有更高的初始渲染消耗
 
+### v-if 和 v-for 的优先级
+
+`v-for` 比 `v-if` 高，因为源码 `genElement` 函数中对 `v-for` 的判断在 `v-if` 之前。
+
 ### `$route`和`$router` 的区别
 
 - `$route`：是**路由信息**对象，包括 path，params，hash，query，fullPath，matched，name 等路由信息参数。
 - `$router`：是**路由示例**对象，包括了路由的跳转方法，钩子函数等。
+
+### nextTick 是什么？
+
+获取更新后的 DOM 内容
 
 ### vue.js 的两个核心是什么？
 
