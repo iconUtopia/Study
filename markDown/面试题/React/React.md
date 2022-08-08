@@ -405,10 +405,6 @@ const useForceUpdate = function () {
   - `React.createContext()`，但存储的变量难以追溯数据源以及缺人变动点。不利于组件的复用以及测试。
   - 状态管理框架：Redux、Mobx、Flux
 
----
-
-## 举例一种你了解的 React 状态管理框架
-
 #### Flux
 
 MVC 更适合小型应用，会导致大型应用更复杂。FLUX 提出一种 MVC 意外的单项数据流：
@@ -418,16 +414,6 @@ MVC 更适合小型应用，会导致大型应用更复杂。FLUX 提出一种 M
 - Dispatcher：管理数据流动的中央枢纽
 - Action：一种事件通知，通常用 type 标记
   从应用场景看，Flux 除了在 Facebook 内部大规模应用外，业界很少使用了。
-
-#### Redux
-
-Redux 三原则：
-
-- 单一数据源：整个应用的 state 被储存在一棵 object tree 中，并且 object tree 只存在唯一一个 Store 中
-- 纯函数 Reducer：为了描述 Action 如何改变状态树，编写的一个纯函数的 Reducer
-- state 是只读的：唯一可以改变 state 的方法就是触发 Action，Action 是用于描述已发生的普通对象
-
-#### Mobx
 
 ---
 
@@ -442,6 +428,7 @@ Redux 三原则：
 3. 较低的成本实现跨平台的开发。
 
 ###### 缺点：
+
 1. 内存占用较高，因为需要模拟整个真实 DOM；
 2. 无法进行极致优化。
 
@@ -460,13 +447,8 @@ Redux 三原则：
 
 ## React Fiber
 
-Fiber 是对 React 核心算的重构，重构的产物就是 Fiber Reconciler。
-
-核心目标：酷哒起**适应性**，包裹动画、布局和手势。分为 5 个目标：
-
-- 把可中断的工作拆分成小任务
-- 对正在做的工作调整优先次序、重做、复用上次的成果。
-- 在父子任务之间从容切换，以支持 React 执行过程中的布局刷新
+- 是什么：Fiber 是对 React 核心算的重构，重构的产物就是 Fiber Reconciler。
+- 做什么的：diff 算法是同步、递归的，如果更新内容太多，js 主线程会被阻塞，页面渲染会掉帧。React 16 之后引入的 fiber 架构，一种链表式的数据结构。把渲染任务分割成多个可中断的子任务。
 
 ---
 

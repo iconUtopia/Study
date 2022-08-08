@@ -150,14 +150,14 @@ function MyPromise(executor) {
       _this.resolveResult = resolveResult;
       _this.state = "fulfilled";
       // 7. 添加发布者
-      _this.onFulfilledCallbacks.forEach(item => item(resolveResult));
+      _this.onFulfilledCallbacks.forEach((item) => item(resolveResult));
     }
   }
   function reject(rejectReason) {
     if (_this.state === "pending") {
       _this.resolveResult = rejectReason;
       _this.state = "rejected";
-      _this.onRejectedCallbacks.forEach(item => item(rejectReason));
+      _this.onRejectedCallbacks.forEach((item) => item(rejectReason));
     }
   }
   // 3. 先执行一遍
@@ -168,18 +168,18 @@ function MyPromise(executor) {
   }
 }
 // 2. new 继承 then 和 catch
-MyPromise.prototype.then = function(onFulfilled, onRejected) {
+MyPromise.prototype.then = function (onFulfilled, onRejected) {
   // promise 状态一改变，不管成功或失败，都会调用 then()，根据状态不同，调用不同的回调
   onFulfilled =
     typeof onFulfilled === "function"
       ? onFulfilled
-      : function(data) {
+      : function (data) {
           resolve(data);
         };
   onRejected =
     typeof onRejected === "function"
       ? onRejected
-      : function(data) {
+      : function (data) {
           throw err;
         };
 
@@ -208,7 +208,7 @@ MyPromise.prototype.then = function(onFulfilled, onRejected) {
     }
   });
 };
-MyPromise.prototype.catch = function(fn) {
+MyPromise.prototype.catch = function (fn) {
   return this.then(null, fn);
 };
 
@@ -216,13 +216,13 @@ let test = new MyPromise((resolve, reject) => {
   console.log("手写 Promise");
   setTimeout(() => resolve(123));
 });
-test.then(res => console.log(res));
+test.then((res) => console.log(res));
 ```
 
 #### 实现一个 Promise.all
 
 ```js
-Promise.all = function(promises) {
+Promise.all = function (promises) {
   return new Promise((resolve, reject) => {
     // 参数可以不是数组，但必须具有 Iterator 接口
     if (typeof promises[Symbol.iterator] !== "function") {
@@ -237,13 +237,13 @@ Promise.all = function(promises) {
       for (let i = 0; i < len; i++) {
         //考虑到 promises[i] 可能是 thenable 对象也可能是普通值
         Promise.resolve(promises[i])
-          .then(data => {
+          .then((data) => {
             res[i] = data;
             if (++count === len) {
               resolve(res);
             }
           })
-          .catch(err => {
+          .catch((err) => {
             reject(err);
           });
       }
@@ -279,16 +279,16 @@ async function async2() {
   console.log("async2");
 }
 console.log("script start");
-setTimeout(function() {
+setTimeout(function () {
   console.log("setTimeout");
 }); // 默认值 0，0是浏览器的最小反应时间
 async1();
 // new 的时候是同步执行的
-new Promise(function(resolve) {
+new Promise(function (resolve) {
   // EC函数
   console.log("promise1");
   resolve();
-}).then(function() {
+}).then(function () {
   console.log("promise2");
 });
 console.log("script end");
@@ -435,24 +435,24 @@ axios.defaults.timeout = 1000; // 超时时间
 axios.defaults.withCredentials = true; // 跨域发送请求时允许发送资源凭证
 /* 请求主体格式 */
 axios.defaults.headers["Content-Type"] = `application/x-www-form-urlencode`;
-axios.defaults.transformRequest = data => qs.stringify(data);
+axios.defaults.transformRequest = (data) => qs.stringify(data);
 /* 设置请求拦截器 */
 axios.interceptors.request.use(
-  config => {
+  (config) => {
     let token = localStorage.getItem("token");
     token && (config.headers.Authorization = token);
     return config;
   },
-  err => {
+  (err) => {
     return Promise.reject(error);
   }
 );
 /* 设置响应拦截器 */
 axios.interceptors.response.use(
-  response => {
+  (response) => {
     return response.data;
   },
-  error => {}
+  (error) => {}
 );
 export default axios;
 ```
@@ -568,7 +568,7 @@ class Subject {
   }
   notify(task) {
     console.log("任务更新");
-    this.observerList.forEach(item => item.update(task));
+    this.observerList.forEach((item) => item.update(task));
   }
 }
 // 观察者
@@ -594,11 +594,11 @@ subject.addObserver(person2);
 // 添加任务
 const warTask = {
   taskType: "war",
-  taskInfo: "战斗"
+  taskInfo: "战斗",
 };
 const routeTask = {
   taskType: "route",
-  taskInfo: "日常"
+  taskInfo: "日常",
 };
 // 通知观察者
 subject.notify(warTask);
@@ -635,13 +635,13 @@ class PubSub {
   // 发布方法
   publish(type, ...ags) {
     if (this.events[type]) {
-      this.events[type].forEach(item => item(...ags));
+      this.events[type].forEach((item) => item(...ags));
     }
   }
   // 取消订阅方法
   unsubscribe(type, callBack) {
     if (this.events[type]) {
-      const cbIndex = this.events[type].findIndex(e => e === callBack);
+      const cbIndex = this.events[type].findIndex((e) => e === callBack);
       if (cbIndex !== -1) {
         this.events[type].splice(cbIndex, 1);
       }
@@ -660,16 +660,16 @@ class PubSub {
 let pubsub = new PubSub();
 
 // 玩家订阅任务
-pubsub.subscribe("warTask", function(taskInfo) {
+pubsub.subscribe("warTask", function (taskInfo) {
   console.log(`任务大厅发布任务，任务信息：${taskInfo}`);
 });
-pubsub.subscribe("routeTask", function(taskInfo) {
+pubsub.subscribe("routeTask", function (taskInfo) {
   console.log(`任务大厅发布任务，任务信息：${taskInfo}`);
 });
-pubsub.subscribe("allTask", function(taskInfo) {
+pubsub.subscribe("allTask", function (taskInfo) {
   console.log(`任务大厅发布任务，任务信息：${taskInfo}`);
 });
-pubsub.subscribe("allTask", function(taskInfo) {
+pubsub.subscribe("allTask", function (taskInfo) {
   console.log(`活动任务：${taskInfo}`);
 });
 
@@ -806,7 +806,7 @@ pubsub.publish("allTask", "活动");
 ```js
 typeof 1; // 'number'
 typeof null; // 'object'
-typeof function() {}; // 'function'
+typeof function () {}; // 'function'
 typeof []; // 'object'
 ```
 
@@ -940,14 +940,14 @@ console.log(target.slice(8, target.length - 1) === "String"); // true
 var x = 2;
 var y = {
   x: 3,
-  z: (function(x) {
+  z: (function (x) {
     this.x *= x; //匿名函数调用，this指向window
     x += 2;
-    return function(n) {
+    return function (n) {
       this.x *= n;
       x += 3; // 调用上文 x ，形成了闭包
     };
-  })(x)
+  })(x),
 };
 var m = y.z;
 m(4);
@@ -1185,12 +1185,12 @@ var WuKou = new PersonObj("孙悟空", "棒子");
 ```js
 function Animal(name) {
   this.name = name || "Animal";
-  this.sleep = function() {
+  this.sleep = function () {
     return `${this.name} 正在睡觉！`;
   };
 }
 
-Animal.prototype.eat = function(food) {
+Animal.prototype.eat = function (food) {
   return ` ${this.name} 正在吃 ${food}`;
 };
 ```
@@ -1275,9 +1275,9 @@ function Child(name) {
   Animal.call(this);
   this.name = name || "Tom";
 }
-(function() {
+(function () {
   // 创建一个没有实例方法的类
-  var Super = function() {};
+  var Super = function () {};
   Super.prototype = Animal.prototype;
   //将实例作为子类的原型
   Child.prototype = new Super();
@@ -1351,27 +1351,27 @@ for (const key in copyObj) {
 }
 
 // Object.keys(obj)
-Object.keys(copyObj).forEach(key => {
+Object.keys(copyObj).forEach((key) => {
   result[key] = copyObj[key];
 });
 
 // Object.getOwnPropertyNames(obj)
-Object.getOwnPropertyNames(copyObj).forEach(key => {
+Object.getOwnPropertyNames(copyObj).forEach((key) => {
   result[key] = copyObj[key];
 });
 
 // Object.getOwnPropertySymbols(obj)
-Object.getOwnPropertySymbols(copyObj).forEach(key => {
+Object.getOwnPropertySymbols(copyObj).forEach((key) => {
   result[key] = copyObj[key];
 });
 
 // Reflect.ownKeys(obj)
-Reflect.ownKeys(copyObj).forEach(key => {
+Reflect.ownKeys(copyObj).forEach((key) => {
   result[key] = copyObj[key];
 });
 
 // Reflect.enumerate(obj)
-Reflect.enumerate(copyObj).forEach(key => {
+Reflect.enumerate(copyObj).forEach((key) => {
   result[key] = copyObj[key];
 });
 ```
@@ -1393,25 +1393,25 @@ var treeNodes = [
           {
             id: 111,
             name: "111",
-            children: []
+            children: [],
           },
           {
             id: 112,
-            name: "112"
-          }
-        ]
+            name: "112",
+          },
+        ],
       },
       {
         id: 12,
         name: "12",
-        children: []
-      }
+        children: [],
+      },
     ],
-    users: []
-  }
+    users: [],
+  },
 ];
 
-let parseTreeJson = function(treeNodes) {
+let parseTreeJson = function (treeNodes) {
   if (!treeNodes || !treeNodes.length) return;
   for (let i = 0, len = treeNodes.length; i < len; i++) {
     let children = treeNodes[i].children;
@@ -1440,7 +1440,7 @@ let obj1 = {
     b: [1, 2, 3],
     c: {},
     d: /^\d+&/,
-    e: new Date()
+    e: new Date(),
   },
   obj2 = {};
 
@@ -1595,23 +1595,23 @@ makeSound(new Cat());
 let obj = {
     name: "小智",
     age: 15,
-    say: function(name, cls) {
+    say: function (name, cls) {
       console.log(
         `我叫 ${this.name}，今年 ${this.age} 岁，我的宝可梦是 ${name}，属于 ${cls}`
       );
-    }
+    },
   },
   person2 = {
     name: "小霞",
-    age: 16
+    age: 16,
   },
   person3 = {
     name: "小刚",
-    age: 17
+    age: 17,
   },
   person4 = {
     name: "小茂",
-    age: 18
+    age: 18,
   };
 obj.say("皮卡丘", "电系"); // 我叫 小智，今年 15 岁，我的宝可梦是 皮卡丘，属于 电系
 obj.say.call(person2, "可达鸭", "水系"); // 我叫 小霞，今年 16 岁，我的宝可梦是 可达鸭，属于 水系
@@ -1626,7 +1626,7 @@ call 和 apply 封装对比:其实核心代码是一样的,只不过 call 需要
 
 ```js
 // call（...parameter）、apply（parameter）
-Function.prototype.newCall = function(context, ...parameter) {
+Function.prototype.newCall = function (context, ...parameter) {
   if (typeof context === "object" || typeof context === "function") {
     context = context || window;
   } else {
@@ -1640,7 +1640,7 @@ Function.prototype.newCall = function(context, ...parameter) {
 };
 
 let person = {
-  name: "Abiel"
+  name: "Abiel",
 };
 function sayHi(age, sex) {
   console.log(this.name, age, sex);
@@ -1648,9 +1648,9 @@ function sayHi(age, sex) {
 sayHi.newCall(person, 25, "男"); // Abiel 25 男
 
 // --- bind ---
-Function.prototype.newBind = function(context, ...innerArgs) {
+Function.prototype.newBind = function (context, ...innerArgs) {
   var me = this;
-  return function(...finnalyArgs) {
+  return function (...finnalyArgs) {
     return me.call(context, ...innerArgs, ...finnalyArgs);
   };
 };
@@ -1697,7 +1697,7 @@ Object.defineProperty(data, "value", {
   },
   set(val) {
     document.querySelector("#inputData").innerText = val;
-  }
+  },
 });
 
 document.querySelector("#inputValue").addEventListener("keyup", () => {
@@ -1720,7 +1720,7 @@ let handler = {
   set(target, key, value, receiver) {
     console.log("set", key, value);
     return Reflect.set(target, key, value, receiver);
-  }
+  },
 };
 let proxy = new Proxy(obj, handler);
 proxy.name = "李四";
@@ -1734,6 +1734,66 @@ proxy.age = 24;
 3. proxy 是监听对象，不用深层遍历，defineProperty 是监听属性;
 4. 利用 defineProperty 实现双向数据绑定(vue2.x 采用的核心)
 5. 利用 proxy 实现双向数据绑定(vue3.x 会采用)
+
+---
+
+### SPA
+
+SPA(single-page application) 仅在 web 页面初始化时加载相应的 HTML、CSS 和 JS。一旦加载完成，SPA 不会因为用户的操作而进行页面的重新加载或跳转。取而代之的是利用路由机制实现 HTML 内容的替换，UI 与用户的交互，避免页面的重新加载。
+
+- 优点：
+  - 用户体验好、快，内容的改变不需要重新加载整个页面，避免了不必要的跳转和重复渲染
+  - 基于上面一点，SPA 相对对服务器压力小
+  - 前后端职责分离，构架清晰，前端进行交互逻辑，后端负责数据处理
+- 缺点：
+  - 初次加载耗时多：为实现单页 Web 应用功能及显示效果，需要在加载页面的时候将 JavaScript、CSS 统一加载，部分页面按需加载；
+  - 前几后退由路由器管理：由于单页应用在一个页面中显示所有的内容，所以不能使用浏览器的前进后退功能，所有的页面切换需要自己建立堆栈管理；
+  - SEO 难度较大：由于所有的内容都在一个页面中动态替换显示，所以在 SEO 上其有着天然的弱势。
+
+---
+
+### 前端路由的原理以及实现
+
+前端路由有两种实现方案：
+
+- hash：路由中带有 `#`，通过监听 `#` 后的 URL 路径标识的改变触发 `hashchange`，然后通过 `location.hash` 获取 hash 值，再进行一些路由跳转操作。
+  - 兼容性更好 l；不需要对服务器做改动。
+- history：由 HTML5 提供 History API 来实现 URL 的变化。
+  - 去掉 `#` 更正式、更美观，可以设置当前 URL 同源的任意 URL，路径更直观；需要对服务器做一些改造，需对不同路由进行相应是设置。
+
+```js
+const output = document.querySelector("#output");
+const routes = {
+  "/"() {
+    output.innerText = "默认页面";
+  },
+  "/page1"() {
+    output.innerText = "page1";
+  },
+  "/page2"() {
+    output.innerText = "page2";
+  },
+};
+// hash 的实现方式
+window.addEventListener("hashchange", function (e) {
+  let route = window.location.hash.split("#")[1];
+  routes[route]();
+});
+// history 实现方式
+document.querySelector("#main").addEventListener("click", function (e) {
+  e.preventDefault();
+  let elm = e.target;
+  let url = elm.href;
+  let tit = elm.innerText;
+  // history.pushState 新增一个历史记录
+  window.history.pushState({ path: url, title: tit }, null, url);
+  output.innerHTML = `current page is ${tit}`;
+});
+// popstate 监听历史记录
+window.addEventListener("popstate", function (e) {
+  output.innerHTML = `current page is ${e.state.title}`;
+});
+```
 
 ---
 
@@ -1831,7 +1891,7 @@ var a = {
   i: 0,
   toString() {
     return ++this.i;
-  }
+  },
 };
 if (a == 1 && a == 2 && a == 3) console.log("条件成立");
 ```
@@ -1849,7 +1909,7 @@ var i = 0;
 Object.defineProperty(window, "a", {
   get() {
     return ++i;
-  }
+  },
 });
 if (a == 1 && a == 2 && a == 3) console.log("条件成立");
 ```
@@ -1970,7 +2030,7 @@ function add(x, y) {
 
 // Currying后
 function curryingAdd(x) {
-  return function(y) {
+  return function (y) {
     return x + y;
   };
 }
@@ -1997,7 +2057,7 @@ function curryingAdd() {
   // 第一次执行时，创建一个数组用来存储所有参数
   let argArr = Array.prototype.slice.call(arguments);
   // 在内部声明一个函数，利用闭包的特性保存 argArr 并收集所有的参数
-  let adder = function() {
+  let adder = function () {
     argArr.push(...arguments);
     return adder;
   };
@@ -2013,18 +2073,18 @@ curryingAdd(1)(2, 3)(4, 5, 6)(7, 8, 9, 10).sum(); // 55
 
 ```js
 function Foo() {
-  getName = function() {
+  getName = function () {
     console.log(1);
   };
   return this;
 }
-Foo.getName = function() {
+Foo.getName = function () {
   console.log(2);
 };
-Foo.prototype.getName = function() {
+Foo.prototype.getName = function () {
   console.log(3);
 };
-var getName = function() {
+var getName = function () {
   console.log(4);
 };
 function getName() {

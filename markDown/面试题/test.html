@@ -67,7 +67,35 @@
   //   promise.then(Buy).then(fulfilled => console.log(fulfilled)).catch(rejected => console.log(rejected))
   // }
   // test2()
-
+  const output = document.querySelector('#output')
+  const routes = {
+    '/'() {
+      output.innerText = '默认页面'
+    },
+    '/page1'() {
+      output.innerText = 'page1'
+    },
+    '/page2'() {
+      output.innerText = 'page2'
+    },
+  }
+  // hash 的实现方式
+  window.addEventListener('hashchange', function (e) {
+    let route = window.location.hash.split('#')[1]
+    routes[route]()
+  })
+  // history 实现方式
+  document.querySelector('#main').addEventListener('click', function (e) {
+    e.preventDefault();
+    let elm = e.target
+    let url = elm.href
+    let tit = elm.innerText
+    window.history.pushState({ path: url, title: tit }, null, url)
+    output.innerHTML = `current page is ${tit}`
+  })
+  window.addEventListener('popstate', function (e) {
+    output.innerHTML = `current page is ${e.state.title}`
+  })
 
 </script>
 
